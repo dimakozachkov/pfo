@@ -13,7 +13,9 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name'           => env('APP_NAME', 'Laravel'),
+    'name_acronym'   => env('APP_NAME_ACRONYM', 'LRVL'),
+    'version'        => env('APP_VERSION', '1.0'),
 
     /*
     |--------------------------------------------------------------------------
@@ -78,7 +80,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'ru',
 
     /*
     |--------------------------------------------------------------------------

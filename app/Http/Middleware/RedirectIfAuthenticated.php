@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use App\Attributes\RoleAttributes;
 use Illuminate\Support\Facades\Auth;
 
 class RedirectIfAuthenticated
@@ -18,7 +19,13 @@ class RedirectIfAuthenticated
     public function handle($request, Closure $next, $guard = null)
     {
         if (Auth::guard($guard)->check()) {
-            return redirect('/home');
+            $user = auth()->user();
+
+            if ($user->role === RoleAttributes::ROOT) {
+                return redirect()->route('dashboard.index');
+            }
+
+            return redirect()->route('home');
         }
 
         return $next($request);
