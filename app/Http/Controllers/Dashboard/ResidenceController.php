@@ -29,8 +29,7 @@ final class ResidenceController extends ResidenceControllerAbstract
     {
         $residence = parent::store($request);
 
-        return redirect()->route('dashboard.residences.edit')
-            ->with('residence', $residence);
+        return redirect()->route('dashboard.residences.index', $residence);
     }
 
     public function edit(Residence $residence)

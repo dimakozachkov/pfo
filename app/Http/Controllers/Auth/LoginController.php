@@ -2,13 +2,10 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Requests\LoginRequest;
 use App\Models\User;
-use Illuminate\Http\Request;
+use App\Http\Requests\LoginRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Hashing\BcryptHasher;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\ValidationException;
 
 class LoginController extends Controller
 {
@@ -43,6 +40,11 @@ class LoginController extends Controller
         return User::where('login', $login)->first();
     }
 
+    /**
+     * @param string $password
+     * @param User $user
+     * @return \Illuminate\Http\RedirectResponse
+     */
     private function checkUser(string $password, User $user)
     {
         if ($this->hasher->check($password, $user->getAuthPassword())) {
@@ -75,6 +77,9 @@ class LoginController extends Controller
 
     }
 
+    /**
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function logout()
     {
         auth()->logout();

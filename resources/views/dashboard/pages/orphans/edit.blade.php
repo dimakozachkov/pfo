@@ -60,15 +60,25 @@
             </div>
         </div>
         <div class="col-md-12">
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for="address">Address:</label>
-                    <div class="input-group">
-                        <input type="text" class="form-control pull-left" id="address" name="address"
-                               value="{{ $orphan->address }}">
-                    </div>
-                    <!-- /.input group -->
-                </div>
+            <div class="form-group" style="margin-right: 0;">
+                <label for="inputCountry">Select a country</label>
+                <select class="form-control" id="inputCountry" name="country_id">
+                    @foreach($countries as $country)
+                        <option value="{{ $country->id }}"
+                                @if($country->id === $orphan->country_id) selected @endif>{{ $country->title }}</option>
+                    @endforeach
+                </select>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group" style="margin-right: 0;">
+                <label for="inputResidence">Select a residence</label>
+                <select class="form-control" id="inputResidence" name="residence_id">
+                    @foreach($residences as $residence)
+                        <option value="{{ $residence->id }}"
+                                @if($residence->id === $residence->country_id) selected @endif>{{ $residence->title }}</option>
+                    @endforeach
+                </select>
             </div>
         </div>
         <div class="col-md-12">

@@ -40,10 +40,17 @@
                 </div>
                 <div class="col-xs-12">
                     <div class="section__list section__list_company">
-                        <div class="section__item"><img src="/img/companies-red.png" alt="">{{ $orphan->address }}</div>
-                        <div class="section__item"><img src="/img/birthday.png"
-                                                        alt="">{{ $orphan->birthday->format('d/M/Y') }}</div>
-                        <div class="section__item"><img src="/img/classroom.png" alt="">{{ $orphan->class }}</div>
+                        @if (isset($orphan->residence))
+                            <div class="section__item"><img src="/img/companies-red.png"
+                                                            alt="">{{ optional($orphan->residence)->title }}</div>
+                        @endif
+                        @if (isset($orphan->birthday))
+                            <div class="section__item"><img src="/img/birthday.png"
+                                                            alt="">{{ $orphan->birthday->format('d/M/Y') }}</div>
+                        @endif
+                        @if ($orphan->class > 0)
+                            <div class="section__item"><img src="/img/classroom.png" alt="">{{ $orphan->class }}</div>
+                        @endif
                     </div>
                 </div>
                 <div class="col-md-12">
@@ -104,15 +111,13 @@
                         @csrf
                         @method("PUT")
                         <p class="modal-edit__name">Place of residence</p>
-                        <select class="form-control" id="CountryId">
-                            <option>-Country of Residence-</option>
-                            @foreach($countries as $country)
-                                <option value="{{ $country->id }}"
-                                        @if($orphan->country_id === $country->id) selected @endif>{{ $country->title }}</option>
+                        <select class="form-control" id="ResidenceId">
+                            <option>-Select a Residence-</option>
+                            @foreach($residences as $residence)
+                                <option value="{{ $residence->id }}"
+                                        @if(optional($orphan->residence)->id === $residence->id) selected @endif>{{ $residence->title }}</option>
                             @endforeach
                         </select>
-                        <input type="text" placeholder="Address" class="modal-edit__field" id="address" name="address"
-                               value="{{ $orphan->address ?? '' }}">
 
                         <p class="modal-edit__name">Personal data</p>
 
@@ -131,8 +136,8 @@
                                value="{{ $orphan->class }}">
                         <p class="modal-edit__name">Other important notes</p>
                         <textarea class="modal-edit__field" placeholder="Other important notes"
-                                  style="height: 100px; resize: none" id="about" name="about"
-                                  value="{{ $orphan->about }}"></textarea>
+                                  style="height: 100px; resize: none" id="about"
+                                  name="about">{{ $orphan->about }}</textarea>
 
                         <div class="form-group save-changes">
                             <input id="Done" class="btn btn-primary" type="submit"
@@ -181,29 +186,10 @@
                 </div>
                 <div class="modal-edit__body">
                     <div class="modal-edit__form">
-
-                        <a href="http://prayfororphan.info/?page=Download&amp;Makets=41&amp;ChildId=2336">BOLGARIA-wwo</a><br>
-                        <a href="http://prayfororphan.info/?page=Download&amp;Makets=44&amp;ChildId=2336">DR Congo
-                            (fr)</a><br>
-                        <a href="http://prayfororphan.info/?page=Download&amp;Makets=30&amp;ChildId=2336">ENGLISH-WWO</a><br>
-                        <a href="http://prayfororphan.info/?page=Download&amp;Makets=45&amp;ChildId=2336">EST-wwo.png</a><br>
-                        <a href="http://prayfororphan.info/?page=Download&amp;Makets=28&amp;ChildId=2336">Hindi
-                            BSP</a><br>
-                        <a href="http://prayfororphan.info/?page=Download&amp;Makets=33&amp;ChildId=2336">HINDI
-                            WWO</a><br>
-                        <a href="http://prayfororphan.info/?page=Download&amp;Makets=42&amp;ChildId=2336">HU-wwo-line.png</a><br>
-                        <a href="http://prayfororphan.info/?page=Download&amp;Makets=43&amp;ChildId=2336">IL-wwo-line.png</a><br>
-                        <a href="http://prayfororphan.info/?page=Download&amp;Makets=46&amp;ChildId=2336">LT-wwo.png</a><br>
-                        <a href="http://prayfororphan.info/?page=Download&amp;Makets=48&amp;ChildId=2336">LV-wwo</a><br>
-                        <a href="http://prayfororphan.info/?page=Download&amp;Makets=34&amp;ChildId=2336">PORTU</a><br>
-                        <a href="http://prayfororphan.info/?page=Download&amp;Makets=35&amp;ChildId=2336">PORTU
-                            WWW</a><br>
-                        <a href="http://prayfororphan.info/?page=Download&amp;Makets=36&amp;ChildId=2336">RUSSIAN</a><br>
-                        <a href="http://prayfororphan.info/?page=Download&amp;Makets=37&amp;ChildId=2336">RUSSIAN-WWO</a><br>
-                        <a href="http://prayfororphan.info/?page=Download&amp;Makets=31&amp;ChildId=2336">SPANISH</a><br>
-                        <a href="http://prayfororphan.info/?page=Download&amp;Makets=32&amp;ChildId=2336">SPANISH-WWO</a><br>
-                        <a href="http://prayfororphan.info/?page=Download&amp;Makets=39&amp;ChildId=2336">UKRAINE</a><br>
-                        <a href="http://prayfororphan.info/?page=Download&amp;Makets=38&amp;ChildId=2336">UKRAINE-WWO</a><br>
+                        @foreach($templates as $template)
+                            <a target="_blank" download href="{{ route('download', ['orphan' => $orphan, 'template' => $template]) }}">{{ $template->title }}</a>
+                            <br>
+                        @endforeach
                     </div>
                 </div>
             </div>

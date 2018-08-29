@@ -13,8 +13,8 @@
             </div>
             <div class="col-md-3 col-xs-12 col-sm-3">
                 <div class="header__wrap">
-                    <form form="" action="{{ route('home') }}" method="GET" class="header__form">
-                        <input type="text" class="header__search">
+                    <form action="{{ route('find') }}" method="GET" class="header__form">
+                        <input type="text" class="header__search" name="search" value="{{ request('search') }}">
                     </form>
                 </div>
             </div>

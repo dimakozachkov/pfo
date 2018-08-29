@@ -29,4 +29,12 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/countries/{country}', 'MainController@country')->name('country');
 
+    Route::resource('residences', 'ResidenceController', [
+        'only' => ['index', 'store', 'update'],
+    ]);
+
+    Route::get('find', 'MainController@find')->name('find');
+
+    Route::get('download/{orphan}/{template}', 'MainController@download')->name('download');
+
 });

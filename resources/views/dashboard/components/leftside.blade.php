@@ -100,12 +100,12 @@
                 </a>
                 <ul class="treeview-menu">
                     <li @if ($selectMenu === 'layouts' && $subSelectMenu === 'list') class="active" @endif>
-                        <a href="{{ route('dashboard.layouts.index') }}">
+                        <a href="{{ route('dashboard.templates.index') }}">
                             <i class="fa fa-circle-o"></i> {{ trans('dashboard/leftside.layouts.list') }}
                         </a>
                     </li>
                     <li @if ($selectMenu === 'layouts' && $subSelectMenu === 'add') class="active" @endif>
-                        <a href="{{ route('dashboard.layouts.create') }}">
+                        <a href="{{ route('dashboard.templates.create') }}">
                             <i class="fa fa-circle-o"></i> {{ trans('dashboard/leftside.layouts.add') }}
                         </a>
                     </li>

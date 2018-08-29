@@ -10,8 +10,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Orphan;
 use App\Models\Country;
-use App\Services\PhotoUploader;
+use App\Models\Template;
 use Illuminate\Http\Request;
+use App\Services\PhotoUploader;
 use App\Common\Controllers\Dashboard\OrphanControllerAbstract;
 
 final class OrphanController extends OrphanControllerAbstract
@@ -21,16 +22,23 @@ final class OrphanController extends OrphanControllerAbstract
     {
         $photos = $orphan->photos()->get();
         $countries = Country::all();
+        $templates = Template::all();
+        $residences = auth()->user()->country->residences()->get();
 
         return view('client.pages.profile')
             ->with('orphan', $orphan)
             ->with('photos', $photos)
-            ->with('countries', $countries);
+            ->with('countries', $countries)
+            ->with('residences', $residences)
+            ->with('templates', $templates);
     }
 
     public function create()
     {
-        return view('client.pages.profile');
+        $residences = auth()->user()->country->residences()->get();
+
+        return view('client.pages.create')
+            ->with('residences', $residences);
     }
 
     /**

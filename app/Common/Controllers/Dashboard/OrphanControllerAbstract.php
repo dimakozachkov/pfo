@@ -37,7 +37,8 @@ abstract class OrphanControllerAbstract extends Controller
     {
         $data = $request->only([
             'first_name', 'last_name', 'address',
-            'birthday', 'class', 'about',
+            'country_id', 'residence_id', 'birthday',
+            'class', 'about',
         ]);
 
         $orphan = Orphan::create($data);
@@ -65,7 +66,8 @@ abstract class OrphanControllerAbstract extends Controller
     {
         $data = $request->only([
             'first_name', 'last_name', 'address',
-            'birthday', 'class', 'about',
+            'country_id', 'residence_id', 'birthday',
+            'class', 'about',
         ]);
 
         if (count($data) > 0) {

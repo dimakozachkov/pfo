@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Dashboard;
 use App\Common\Controllers\Dashboard\OrphanControllerAbstract;
 use App\Http\Requests\Dashboard\Orphan\StoreRequest;
 use App\Http\Requests\Dashboard\Orphan\UpdateRequest;
+use App\Models\Country;
 use App\Models\Orphan;
+use App\Models\Residence;
 use App\Services\PhotoUploader;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -29,7 +31,12 @@ final class OrphanController extends OrphanControllerAbstract
      */
     public function create()
     {
-        return view('dashboard.pages.orphans.create');
+        $countries = Country::all();
+        $residences = Residence::all();
+
+        return view('dashboard.pages.orphans.create')
+            ->with('countries', $countries)
+            ->with('residences', $residences);
     }
 
     /**
@@ -47,8 +54,13 @@ final class OrphanController extends OrphanControllerAbstract
 
     public function edit(Orphan $orphan)
     {
+        $countries = Country::all();
+        $residences = Residence::all();
+
         return view('dashboard.pages.orphans.edit')
-            ->with('orphan', $orphan);
+            ->with('orphan', $orphan)
+            ->with('countries', $countries)
+            ->with('residences', $residences);
     }
 
     public function update(Request $request, Orphan $orphan, PhotoUploader $uploader)

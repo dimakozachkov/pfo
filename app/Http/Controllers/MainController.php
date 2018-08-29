@@ -11,7 +11,10 @@ namespace App\Http\Controllers;
 use App\Models\Country;
 use App\Common\Controllers\Dashboard\PhotoControllerAbstract;
 use App\Models\Orphan;
+use App\Models\Residence;
+use App\Models\Template;
 use Illuminate\Http\Request;
+use Intervention\Image\Facades\Image;
 
 class MainController extends PhotoControllerAbstract
 {
@@ -33,46 +36,32 @@ class MainController extends PhotoControllerAbstract
             ->with('orphans', $orphans);
     }
 
-    public function profile(Orphan $orphan)
+    public function find(Request $request)
     {
-        $photos = $orphan->photos()->get();
-        $countries = Country::all();
+        $orphans = Orphan::filter($request)->paginate();
+        $residences = Residence::all();
+        $templates = Template::all();
 
-        return view('client.pages.profile')
-            ->with('orphan', $orphan)
-            ->with('photos', $photos)
-            ->with('countries', $countries);
+        return view('client.pages.find')
+            ->with('residences', $residences)
+            ->with('orphans', $orphans)
+            ->with('templates', $templates);
     }
 
-    public function create()
+    public function download(Orphan $orphan, Template $template)
     {
-        return view('client.pages.profile');
-    }
+        $orphanPhoto = $orphan->main_photo;
+        $templatePhoto = $template->url;
 
-    public function store(Request $request)
-    {
-        $data = $request->only([
-            'first_name', 'last_name', 'address',
-            'birthday', 'class', 'about',
-        ]);
+        $orphanPath = public_path('storage/photos') . "/{$orphanPhoto}";
+        $templatePath = public_path('img/templates') . "/{$templatePhoto}";
 
-        $orphan = Orphan::create($data);
+        $img = Image::make($orphanPath)->resize(1200, 1800);
 
-        return redirect()->route('country')
-            ->with('country', $orphan->country_id);
-    }
+        $watermark = Image::make($templatePath);
+        $img->insert($watermark, 'center');
 
-    public function update(Request $request, Orphan $orphan)
-    {
-        $data = $request->only([
-            'first_name', 'last_name', 'address',
-            'birthday', 'class', 'country_id',
-            'about',
-        ]);
-
-        $orphan->update($data);
-
-        return redirect()->route('orphans.show', $orphan);
+        return $img->response();
     }
 
 }

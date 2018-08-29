@@ -55,14 +55,13 @@
             </div>
         </div>
         <div class="col-md-12">
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for="address">Address:</label>
-                    <div class="input-group">
-                        <input type="text" class="form-control pull-left" id="address" name="address">
-                    </div>
-                    <!-- /.input group -->
-                </div>
+            <div class="form-group" style="margin-right: 0;">
+                <label for="inputCountry">Select a country</label>
+                <select class="form-control" id="inputCountry" name="country_id">
+                    @foreach($countries as $country)
+                        <option value="{{ $country->id }}">{{ $country->title }}</option>
+                    @endforeach
+                </select>
             </div>
         </div>
         <div class="col-md-12">
