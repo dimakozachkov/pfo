@@ -8,13 +8,15 @@
                     <div class="section-blog__header">
                         <div class="section-blog__padding">
                             <div class="section-blog__header-center">
-                                <h2 class="section__title section__title_blog-header">Find</h2>
+                                <h2 class="section__title section__title_blog-header">@lang('client/find.find')</h2>
                                 <form method="GET" action="{{ route('find') }}" class="section-blog__form">
 						            <span class="section-blog__form-search">
 						                <input type="text" class="header__search" name="search" id="SearchValue"
-                                               placeholder="Search" value="{{ request('search') }}">
+                                               placeholder="@lang('client/find.search')"
+                                               value="{{ request('search') }}">
 						            </span>
-                                    <div class="section-form__wrap"><span class="section-form__select-arrow"> </span>
+                                    <div class="section-form__wrap">
+                                        <span class="section-form__select-arrow"></span>
                                         <select name="residence_id" id="residenceId" class="section-form__select">
                                             @foreach($residences as $residence)
                                                 <option value="{{ $residence->id }}"
@@ -22,7 +24,7 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                    <button class="section-form__btn section-form__btn_blog"> submit</button>
+                                    <button class="section-form__btn section-form__btn_blog">@lang('client/find.submit')</button>
 
                                 </form>
                             </div>
@@ -34,11 +36,12 @@
                 <div class="col-md-12">
 
                     @if(request()->has('search'))
-                        <h2 class="section__title section__title_blog-header" style="margin:5px;">Search results for the
-                            word: <span style="color:#FF414D">"{{ request('search') }}"</span></h2>
-                @endif
+                        <h2 class="section__title section__title_blog-header"
+                            style="margin:5px;">@lang('client/find.search-results'): <span
+                                    style="color:#FF414D">"{{ request('search') }}"</span></h2>
+                    @endif
 
-                <!-- GALLERY BODY -->
+                    <!-- GALLERY BODY -->
                     <div class="gallery-bot">
                         <div class="row">
                             @foreach($orphans as $orphan)
@@ -46,8 +49,8 @@
                                     <div class="gallery-bot__box">
                                         <div class="gallery-bot__hover">
 
-                                            <a href="#" class="gallery-bot__hover-text">
-                                                <img src="{{ asset('img/edit.png') }}" alt="">view</a>
+                                            <a href="{{ route('orphans.show', $orphan->id) }}" class="gallery-bot__hover-text">
+                                                <img src="{{ asset('img/edit.png') }}" alt="">@lang('client/find.view')</a>
                                             <a href="#" class="section-profile__box" id="edit-company{{ $orphan->id }}">
                                                 <img src="{{ asset('img/download.png') }}" alt=""
                                                      class="section-profile__img">
@@ -65,8 +68,7 @@
                                     <div class="modal-edit__content">
                                         <div class="modal-edit__header">
                                             <div class="modal-edit__left">
-                                                <p class="modal-edit__header-text">Choose which language you want to
-                                                    download photos</p>
+                                                <p class="modal-edit__header-text">@lang('client/modals.choose-lang')</p>
 
                                             </div>
                                             <div class="modal-edit__right">
@@ -76,7 +78,8 @@
                                         <div class="modal-edit__body">
                                             <div class="modal-edit__form">
                                                 @foreach($templates as $template)
-                                                    <a href="?page=Download&amp;Makets=41&amp;ChildId=1322">{{ $template->title }}</a><br>
+                                                    <a href="{{ route('download', ['orphan' => $orphan, 'template' => $template]) }}">{{ $template->title }}</a>
+                                                    <br>
                                                 @endforeach
                                             </div>
                                         </div>
@@ -135,15 +138,15 @@
             </div>
         </div>
     </section>
-    @section('scripts')
-        <script language="javascript">
-            $('document').ready(function () {
-                @foreach($orphans as $orphan)
-                $('#edit-company{{ $orphan->id }}').click(function () {
-                    $("#modal-company{{ $orphan->id }}").toggle();
-                });
-                @endforeach
+@section('scripts')
+    <script language="javascript">
+        $('document').ready(function () {
+            @foreach($orphans as $orphan)
+            $('#edit-company{{ $orphan->id }}').click(function () {
+                $("#modal-company{{ $orphan->id }}").toggle();
             });
-        </script>
-    @endsection
+            @endforeach
+        });
+    </script>
+@endsection
 @endsection

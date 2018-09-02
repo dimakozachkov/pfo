@@ -14,7 +14,7 @@
             <div class="col-md-3 col-xs-12 col-sm-3">
                 <div class="header__wrap">
                     <form action="{{ route('find') }}" method="GET" class="header__form">
-                        <input type="text" class="header__search" name="search" value="{{ request('search') }}">
+                        <input type="text" class="header__search" name="search" placeholder="@lang('client/menu.search')..." value="{{ request('search') }}">
                     </form>
                 </div>
             </div>

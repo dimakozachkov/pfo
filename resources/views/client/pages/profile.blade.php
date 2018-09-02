@@ -64,7 +64,7 @@
             <div class="section__padding">
                 <div class="row">
                     <div class="col-md-12">
-                        <h3 class="section__title section__title_margin"> archive</h3>
+                        <h3 class="section__title section__title_margin"> @lang('client/profile.archive')</h3>
                     </div>
                     @foreach($photos->chunk(3) as $photoPart)
                         @foreach($photoPart as $photo)
@@ -100,7 +100,7 @@
             <div class="modal-edit__content">
                 <div class="modal-edit__header">
                     <div class="modal-edit__left">
-                        <p class="modal-edit__header-text">Edit name and position</p>
+                        <p class="modal-edit__header-text">@lang('client/profile.edit')</p>
                     </div>
                     <div class="modal-edit__right">
                         <div class="modal-edit__close">✖</div>
@@ -110,38 +110,38 @@
                     <form class="modal-edit__form" action="{{ route('orphans.update', $orphan) }}" method="POST">
                         @csrf
                         @method("PUT")
-                        <p class="modal-edit__name">Place of residence</p>
+                        <p class="modal-edit__name">@lang('client/profile.place')</p>
                         <select class="form-control" id="ResidenceId">
-                            <option>-Select a Residence-</option>
+                            <option>-@lang('client/profile.select')-</option>
                             @foreach($residences as $residence)
                                 <option value="{{ $residence->id }}"
                                         @if(optional($orphan->residence)->id === $residence->id) selected @endif>{{ $residence->title }}</option>
                             @endforeach
                         </select>
 
-                        <p class="modal-edit__name">Personal data</p>
+                        <p class="modal-edit__name">@lang('client/profile.personal-data')</p>
 
-                        <input type="text" placeholder="Name" class="modal-edit__field" id="first_name"
+                        <input type="text" placeholder="@lang('client/profile.name')" class="modal-edit__field" id="first_name"
                                name="first_name" value="{{ $orphan->first_name }}">
-                        <input type="text" placeholder="Surname" class="modal-edit__field" id="last_name"
+                        <input type="text" placeholder="client/profile.surname" class="modal-edit__field" id="last_name"
                                name="last_name" value="{{ $orphan->last_name }}">
 
-                        <input type="text" class="modal-edit__field input-group date" placeholder="Birthday"
+                        <input type="text" class="modal-edit__field input-group date" placeholder="@lang('client/profile.birthday')"
                                id="datetimepicker"
                                name="birthday"
                                value="{{ $orphan->birthday->format('d.m.Y') }}">
 
-                        <input type="number" min="0" class="modal-edit__field" placeholder="class"
+                        <input type="number" min="0" class="modal-edit__field" placeholder="@lang('client/profile.class')"
                                name="class"
                                value="{{ $orphan->class }}">
-                        <p class="modal-edit__name">Other important notes</p>
-                        <textarea class="modal-edit__field" placeholder="Other important notes"
+                        <p class="modal-edit__name">@lang('client/profile.other')</p>
+                        <textarea class="modal-edit__field" placeholder="@lang('client/profile.other')"
                                   style="height: 100px; resize: none" id="about"
                                   name="about">{{ $orphan->about }}</textarea>
 
                         <div class="form-group save-changes">
                             <input id="Done" class="btn btn-primary" type="submit"
-                                   value="Save">
+                                   value="@lang('client/profile.save')">
                         </div>
                     </form>
                 </div>
@@ -153,7 +153,7 @@
             <div class="modal-edit__content modal-edit__content_avatar">
                 <div class="modal-edit__header">
                     <div class="modal-edit__left">
-                        <p class="modal-edit__header-text">Edit portrait</p>
+                        <p class="modal-edit__header-text">@lang('client/profile.portrait')</p>
                     </div>
                     <div class="modal-edit__right">
                         <div class="modal-edit__close">✖</div>
@@ -166,8 +166,8 @@
                             @csrf
                             @method('PUT')
                             <input name="photo" type="FILE" size="50">
-                            <input type="submit" class="section-form__btn" id="modal-avatar_btn" value="Save">
-                            <button class="modal-edit__close-text" type="reset">cancel</button>
+                            <input type="submit" class="section-form__btn" id="modal-avatar_btn" value="@lang('client/profile.save')">
+                            <button class="modal-edit__close-text" type="reset">@lang('client/profile.cancel')</button>
                         </form>
                     </div>
                 </div>
@@ -177,7 +177,7 @@
             <div class="modal-edit__content">
                 <div class="modal-edit__header">
                     <div class="modal-edit__left">
-                        <p class="modal-edit__header-text">Choose which language you want to download photos</p>
+                        <p class="modal-edit__header-text">@lang('client/modals.choose-lang')</p>
 
                     </div>
                     <div class="modal-edit__right">

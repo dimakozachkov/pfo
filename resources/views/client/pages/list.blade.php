@@ -22,7 +22,7 @@
                             <div class="gallery-bot__box">
                                 <div class="gallery-bot__hover">
                                     <a href="{{ route('orphans.show', $orphan) }}" class="gallery-bot__hover-text">
-                                        view
+                                        @lang('client/list.show')
                                     </a>
                                 </div>
                                 <a href="{{ route('orphans.show', $orphan) }}" class="gallery-bot__album">

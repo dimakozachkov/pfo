@@ -47,9 +47,10 @@ class PhotoUploader
 
     /**
      * @param $photo
+     * @param string $path
      * @return string
      */
-    public function upload($photo)
+    public function upload($photo, $path = 'public/photos')
     {
         $photoPath = public_path('photos');
 
@@ -57,7 +58,7 @@ class PhotoUploader
 
         $photoName = $this->generatePhotoName($photo);
 
-        $photo->storeAs('public/photos', $photoName);
+        $photo->storeAs($path, $photoName);
 
         return $photoName;
     }

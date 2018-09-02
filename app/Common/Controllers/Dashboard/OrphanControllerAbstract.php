@@ -53,6 +53,17 @@ abstract class OrphanControllerAbstract extends Controller
             ]);
         }
 
+        if ($request->hasFile('photos')) {
+            foreach ($request->file('photos') as $photoFile) {
+                $photo = $uploader->upload($photoFile);
+                $orphan->photos()->create([
+                    'url' => $photo,
+                    'weight' => rand(0, 99),
+                    'main' => false,
+                ]);
+            }
+        }
+
         return $orphan;
     }
 

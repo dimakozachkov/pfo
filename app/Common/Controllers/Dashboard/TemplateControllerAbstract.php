@@ -40,7 +40,7 @@
                 'title'
             ]);
 
-            $photo = $uploader->upload($request->file('photo'));
+            $photo = $uploader->upload($request->file('photo'), 'img/templates');
 
             $data['url'] = $photo;
 

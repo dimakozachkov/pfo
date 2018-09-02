@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>{{ config('app.name') }} | Log in</title>
+    <title>{{ config('app.name') }} | @lang('auth.login')</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.7 -->
@@ -34,27 +34,25 @@
     </div>
     <!-- /.login-logo -->
     <div class="login-box-body">
-        <p class="login-box-msg">Sign in to start your session</p>
+        <p class="login-box-msg">@lang('auth.signin-to-start')</p>
 
         <form action="{{ route('user.login') }}" method="post">
             @csrf
             <div class="form-group has-feedback">
-                <input type="text" class="form-control" placeholder="Login" name="login">
+                <input type="text" class="form-control" placeholder="@lang('auth.login')" name="login">
                 <span class="glyphicon glyphicon-user form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
-                <input type="password" class="form-control" placeholder="Password" name="password">
+                <input type="password" class="form-control" placeholder="@lang('auth.password')" name="password">
                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
             </div>
             <div class="row">
                 <div class="col-xs-4">
-                    <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+                    <button type="submit" class="btn btn-primary btn-block btn-flat">@lang('auth.signin')</button>
                 </div>
                 <!-- /.col -->
             </div>
         </form>
-        <br>
-        <a href="#">I forgot my password</a><br>
 
     </div>
     <!-- /.login-box-body -->

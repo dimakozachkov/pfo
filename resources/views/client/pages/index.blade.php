@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="gallery-top__center">
-                    <h2 class="gallery-top__title">orphans</h2>
+                    <h2 class="gallery-top__title">@lang('client/index.orphans')</h2>
                 </div>
             </div>
 
@@ -22,7 +22,7 @@
                     <div class="gallery-bot__box">
                         <div class="gallery-bot__hover">
 
-                            <a href="{{ route('country', $country) }}" class="gallery-bot__hover-text">show</a>
+                            <a href="{{ route('country', $country) }}" class="gallery-bot__hover-text">@lang('client/index.show')</a>
                         </div>
                         <a href="{{ route('country', $country) }}"
                            class="gallery-bot__album">

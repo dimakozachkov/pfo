@@ -50,8 +50,7 @@ final class OrphanController extends OrphanControllerAbstract
     {
         $orphan = parent::store($request, $uploader);
 
-        return redirect()->route('country')
-            ->with('country', $orphan->country_id);
+        return redirect()->route('country', $orphan->country);
     }
 
     public function update(Request $request, Orphan $orphan, PhotoUploader $uploader)
