@@ -15,4 +15,5 @@ return [
     'residences'        => 'Места жительства',
     'residences.list'   => 'Список мест жительства',
     'residences.add'    => 'Добавить место жительства',
+	'delete'            => 'Delete',
 ];

@@ -1,23 +1,31 @@
 <?php
 
-    namespace App\Models;
+namespace App\Models;
 
-    use Illuminate\Database\Eloquent\Model;
+use Storage;
+use Illuminate\Database\Eloquent\Model;
 
-    class Template extends Model
-    {
-
-        protected $fillable = [
-            'url', 'title'
-        ];
-
-        protected static function boot()
-        {
-            parent::boot();
-
-            static::deleting(function ($template) {
-                \Storage::disk('public')->delete("photos/{$template->url}");
-            });
-        }
-
-    }
+/**
+ * Class Template
+ * @package App\Models
+ *
+ * @property string $url
+ * @property string $title
+ */
+class Template extends Model
+{
+	
+	protected $fillable = [
+		'url', 'title',
+	];
+	
+	protected static function boot()
+	{
+		parent::boot();
+		
+		static::deleting(function ($template) {
+			Storage::disk('public')->delete("photos/{$template->url}");
+		});
+	}
+	
+}

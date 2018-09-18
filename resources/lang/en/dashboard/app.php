@@ -11,4 +11,8 @@ return [
     'layouts.list'      => 'Layouts list',
     'layouts.add'       => 'Add layout',
     'search'            => 'Search',
+	'residences'        => 'Places of Residence',
+	'residences.list'   => 'Places of Residence list',
+	'residences.add'    => 'Add a residence place',
+    'delete'            => 'Delete',
 ];

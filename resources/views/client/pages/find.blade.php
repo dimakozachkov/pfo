@@ -37,11 +37,18 @@
 
                     @if(request()->has('search'))
                         <h2 class="section__title section__title_blog-header"
-                            style="margin:5px;">@lang('client/find.search-results'): <span
-                                    style="color:#FF414D">"{{ request('search') }}"</span></h2>
-                    @endif
+                            style="margin:5px;">@lang('client/find.search-results'):
+                            <span style="color:#FF414D">"{{ $title }}"</span>
+                        </h2>
 
-                    <!-- GALLERY BODY -->
+                        @if($orphans->count() > 0)
+                            <a href="#" id="edit-album" style="margin-left:20px; color:#5C2672; font-weight:bold;">
+                                Download all Photos from this orphanage
+                            </a>
+                    @endif
+                @endif
+
+                <!-- GALLERY BODY -->
                     <div class="gallery-bot">
                         <div class="row">
                             @foreach($orphans as $orphan)
@@ -49,8 +56,10 @@
                                     <div class="gallery-bot__box">
                                         <div class="gallery-bot__hover">
 
-                                            <a href="{{ route('orphans.show', $orphan->id) }}" class="gallery-bot__hover-text">
-                                                <img src="{{ asset('img/edit.png') }}" alt="">@lang('client/find.view')</a>
+                                            <a href="{{ route('orphans.show', $orphan->id) }}"
+                                               class="gallery-bot__hover-text">
+                                                <img src="{{ asset('img/edit.png') }}" alt="">@lang('client/find.view')
+                                            </a>
                                             <a href="#" class="section-profile__box" id="edit-company{{ $orphan->id }}">
                                                 <img src="{{ asset('img/download.png') }}" alt=""
                                                      class="section-profile__img">
@@ -115,28 +124,23 @@
                 </div>
                 <div class="modal-edit__body">
                     <div class="modal-edit__form">
-
-                        <a href="?page=Download&amp;Makets=41&amp;OrphansId=">BOLGARIA-wwo</a><br>
-                        <a href="?page=Download&amp;Makets=44&amp;OrphansId=">DR Congo (fr)</a><br>
-                        <a href="?page=Download&amp;Makets=30&amp;OrphansId=">ENGLISH-WWO</a><br>
-                        <a href="?page=Download&amp;Makets=45&amp;OrphansId=">EST-wwo.png</a><br>
-                        <a href="?page=Download&amp;Makets=28&amp;OrphansId=">Hindi BSP</a><br>
-                        <a href="?page=Download&amp;Makets=33&amp;OrphansId=">HINDI WWO</a><br>
-                        <a href="?page=Download&amp;Makets=42&amp;OrphansId=">HU-wwo-line.png</a><br>
-                        <a href="?page=Download&amp;Makets=43&amp;OrphansId=">IL-wwo-line.png</a><br>
-                        <a href="?page=Download&amp;Makets=46&amp;OrphansId=">LT-wwo.png</a><br>
-                        <a href="?page=Download&amp;Makets=48&amp;OrphansId=">LV-wwo</a><br>
-                        <a href="?page=Download&amp;Makets=34&amp;OrphansId=">PORTU</a><br>
-                        <a href="?page=Download&amp;Makets=35&amp;OrphansId=">PORTU WWW</a><br>
-                        <a href="?page=Download&amp;Makets=36&amp;OrphansId=">RUSSIAN</a><br>
-                        <a href="?page=Download&amp;Makets=37&amp;OrphansId=">RUSSIAN-WWO</a><br>
-                        <a href="?page=Download&amp;Makets=31&amp;OrphansId=">SPANISH</a><br>
-                        <a href="?page=Download&amp;Makets=32&amp;OrphansId=">SPANISH-WWO</a><br>
-                        <a href="?page=Download&amp;Makets=39&amp;OrphansId=">UKRAINE</a><br>
-                        <a href="?page=Download&amp;Makets=38&amp;OrphansId=">UKRAINE-WWO</a><br></div>
+                        @foreach($templates as $template)
+                            <a target="_blank" download
+                                href="{{
+                                    route('download.many', [
+                                       'orphans' => $orphansIds,
+                                       'template' => $template,
+                                       'search' => request('search'),
+                                       'residence_id' => request('residence_id'),
+                                    ])
+                                }}">
+                                {{ $template->title }}
+                            </a>
+                            <br>
+                        @endforeach
+                    </div>
                 </div>
             </div>
-        </div>
     </section>
 @section('scripts')
     <script language="javascript">

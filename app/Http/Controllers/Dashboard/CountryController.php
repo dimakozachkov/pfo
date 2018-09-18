@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Models\Country;
+use App\Services\PhotoUploader;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -22,9 +23,13 @@ final class CountryController extends Controller
         return view('dashboard.pages.countries.create');
     }
 
-    public function store(Request $request)
+    public function store(Request $request, PhotoUploader $uploader)
     {
         $data = $request->only(['code', 'title']);
+	
+	    if ($request->hasFile('photo')) {
+		    $data['icon'] = $uploader->upload($request->file('photo'));
+	    }
 
         Country::create($data);
 
@@ -37,9 +42,15 @@ final class CountryController extends Controller
             ->with('country', $country);
     }
 
-    public function update(Request $request, Country $country)
+    public function update(Request $request, Country $country, PhotoUploader $uploader)
     {
-        $country->update($request->all());
+    	$data = $request->all();
+    	
+	    if ($request->hasFile('photo')) {
+		    $data['icon'] = $uploader->upload($request->file('photo'));
+	    }
+    	
+        $country->update($data);
 
         return redirect()->route('dashboard.countries.edit', $country);
     }

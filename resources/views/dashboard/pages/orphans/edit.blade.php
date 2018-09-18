@@ -7,7 +7,7 @@
 @endphp
 
 @section('content')
-    <form enctype="multipart/form-data" action="{{ route('dashboard.orphans.update', $orphan) }}" method="POST">
+    <form enctype="multipart/form-data" enctype="multipart/form-data" action="{{ route('dashboard.orphans.update', $orphan) }}" method="POST">
         {{ csrf_field() }}
         {{ method_field('PUT') }}
         <div class="col-md-12">

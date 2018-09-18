@@ -29,8 +29,8 @@
                             <p class="section-profile__office">{{ $orphan->orphan_code }}</p>
 
                             <div class="section-profile__box" style="cursor: pointer;">
-                                <img src="{{ asset('img/blank.gif') }}" class="flag flag-ua section-profile__img"
-                                     alt="Ukraine">
+                                <img src="{{ asset('/storage/photos/') }}/{{ $country->icon }}" class="flag flag-ua section-profile__img"
+                                     alt="Ukraine" style="background: url({{ asset('/storage/photos/') }}/{{ $country->icon }}) no-repeat;">
                             </div>
                             <div class="section-profile__box" id="edit-company" style="cursor: pointer;">
                                 <img src="{{ asset('img/download.png') }}" alt="" class="section-profile__img">

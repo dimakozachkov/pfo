@@ -21,12 +21,14 @@ final class OrphanController extends OrphanControllerAbstract
     public function show(Orphan $orphan)
     {
         $photos = $orphan->photos()->get();
+        $country = $orphan->country;
         $countries = Country::all();
         $templates = Template::all();
         $residences = auth()->user()->country->residences()->get();
 
         return view('client.pages.profile')
             ->with('orphan', $orphan)
+            ->with('country', $country)
             ->with('photos', $photos)
             ->with('countries', $countries)
             ->with('residences', $residences)

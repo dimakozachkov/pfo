@@ -5,6 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
+/**
+ * Class Country
+ * @package App\Models
+ *
+ * @property string $code
+ * @property string $title
+ */
 class Country extends Model
 {
     protected $fillable = [

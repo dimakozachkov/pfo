@@ -3237,6 +3237,7 @@ table.text-center th {
 }
 .login-logo a,
 .register-logo a {
+  font-weight: 600;
   color: #444;
 }
 .login-page,

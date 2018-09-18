@@ -12,7 +12,7 @@
         <div class="box-header with-border">
             <h3 class="box-title">{{ $title }}</h3>
         </div>
-        <form class="form-horizontal" method="post" action="{{ route('dashboard.countries.update', $country) }}">
+        <form enctype="multipart/form-data" class="form-horizontal" method="post" action="{{ route('dashboard.countries.update', $country) }}">
             @csrf
             @method('put')
             <div class="box-body">
@@ -29,6 +29,13 @@
 
                     <div class="col-sm-9">
                         <input type="text" name="title" class="form-control" id="title" placeholder="Country title" value="{{ $country->title }}">
+                    </div>
+                </div>
+                <div class="form-group" style="margin-right: 0;">
+                    <label for="icon" class="col-sm-3 control-label">An icon</label>
+
+                    <div class="col-sm-9">
+                        <input type="file" name="photo" id="icon"/>
                     </div>
                 </div>
             </div>
