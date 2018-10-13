@@ -35,6 +35,11 @@
                             <div class="section-profile__box" id="edit-company" style="cursor: pointer;">
                                 <img src="{{ asset('img/download.png') }}" alt="" class="section-profile__img">
                             </div>
+                            @can('view-statistic', $orphan)
+                                <a href="{{ route('orphans.statistic', $orphan) }}" class="section-profile__box" id="edit-company" style="cursor: pointer;">
+                                    <img src="{{ asset('img/statistic.png') }}" alt="Show statistic" class="section-profile__img">
+                                </a>
+                            @endcan
                         </div>
                     </div>
                 </div>

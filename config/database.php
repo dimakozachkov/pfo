@@ -53,6 +53,21 @@ return [
             'strict' => true,
             'engine' => null,
         ],
+	
+	    'mysql_pfo' => [
+		    'driver' => 'mysql',
+		    'host' => 'eushared02.twinservers.net',
+		    'port' => '3306',
+		    'database' => 'agapeuac_pfo',
+		    'username' => 'agapeuac_user',
+		    'password' => '415la0YdsR',
+		    'unix_socket' => env('DB_SOCKET', ''),
+		    'charset' => 'utf8mb4',
+		    'collation' => 'utf8mb4_unicode_ci',
+		    'prefix' => '',
+		    'strict' => true,
+		    'engine' => null,
+	    ],
 
         'pgsql' => [
             'driver' => 'pgsql',

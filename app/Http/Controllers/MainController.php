@@ -42,8 +42,8 @@ class MainController extends PhotoControllerAbstract
             ->with('country', $country)
             ->with('orphans', $orphans);
     }
-
-    public function find(Request $request)
+	
+	public function find(Request $request)
     {
         $orphans = Orphan::filter($request)->paginate();
         $residences = Residence::all();
@@ -56,8 +56,7 @@ class MainController extends PhotoControllerAbstract
         } elseif ($request->has('search')) {
         	$search = $request->input('search');
         	
-        	$title = Orphan::where('first_name', $search)
-	            ->orWhere('last_name', $search);
+        	$title = $search;
         }
         
         $orphansIds = collect($orphans->toArray()['data'])
@@ -70,8 +69,19 @@ class MainController extends PhotoControllerAbstract
 	        ->with('title', $title)
 	        ->with('orphansIds', $orphansIds);
     }
-    
-    private function makeText(&$watermark, string $title, int $y, int $size, string $fontPath, string $color = '#fff') {
+	
+	public function download(Request $request, Template $template)
+	{
+		$orphansIds = $request->input('orphans');
+		$orphans = Orphan::whereId($orphansIds)->get();
+		
+		return view('client.pages.download')
+			->with('orphans', $orphans)
+			->with('orphansIds', $orphansIds)
+			->with('template', $template);
+	}
+	
+	private function makeText(&$watermark, string $title, int $y, int $size, string $fontPath, string $color = '#fff') {
 	    $watermark->text(Str::upper($title), 70, $y, function($font) use ($size, $color, $fontPath) {
 		    $font->file(public_path("/fonts/$fontPath"));
 		    $font->size($size);
@@ -81,8 +91,8 @@ class MainController extends PhotoControllerAbstract
 		    $font->angle(0);
 	    });
     }
-    
-    private function downloadAccount(Orphan $orphan, Template $template)
+	
+	private function downloadAccount(Orphan $orphan, Template $template)
     {
     	DownloadAccount::create([
 		    'user_id'       => auth()->id(),
@@ -90,8 +100,8 @@ class MainController extends PhotoControllerAbstract
 		    'template_id'   => $template->id,
 	    ]);
     }
-
-    public function download(Orphan $orphan, Template $template, DownloadAccount $downloadAccount)
+	
+	public function downloadOne(Orphan $orphan, Template $template, DownloadAccount $downloadAccount)
     {
         $orphanPhoto = $orphan->main_photo;
         $templatePhoto = $template->url;

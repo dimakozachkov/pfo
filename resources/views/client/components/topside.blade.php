@@ -1,4 +1,4 @@
-<header class="header header_shadow">
+<header class="header header_shadow" style="background: white">
     <div class="container">
         <div class="row">
             <div class="col-md-3 col-xs-12 col-sm-3">

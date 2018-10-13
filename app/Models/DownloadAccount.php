@@ -23,6 +23,8 @@ class DownloadAccount extends Model
 		'user_id', 'orphan_id', 'template_id',
 	];
 	
+	protected $with = ['template', 'user'];
+	
 	/**
 	 * Relationship to the orphan
 	 *

@@ -21,3 +21,7 @@ Route::group(['middleware' => 'can:delete,orphan'], function () {
 Route::resource('orphans', 'OrphanController', [
     'only' => ['create', 'store', 'show']
 ]);
+
+Route::get('statistic/{orphan}', 'OrphanController@statistic')
+	->middleware('can:view-statistic,orphan')
+	->name('orphans.statistic');

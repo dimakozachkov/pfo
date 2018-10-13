@@ -35,7 +35,8 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('find', 'MainController@find')->name('find');
 	
-	Route::get('download/{template}', 'MainController@downloadMany')->name('download.many');
-	Route::get('download/{orphan}/{template}', 'MainController@download')->name('download');
+	Route::get('download/{template}','MainController@download')->name('download.photos');
+	Route::get('download/{orphan}/{template}', 'MainController@downloadOne')->name('download');
+	Route::get('download-photos/{template}', 'MainController@downloadMany')->name('download.many');
 
 });

@@ -65,6 +65,11 @@ class OrphanPolicy
 
         return $user->id === $orphan->user_id;
     }
+	
+	public function viewStatistic(User $user, Orphan $orphan)
+	{
+		return $user->role === RoleAttributes::ROOT;
+    }
 
     /**
      * Determine whether the user can restore the orphan.

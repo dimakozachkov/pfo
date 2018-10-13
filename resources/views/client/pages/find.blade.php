@@ -125,9 +125,9 @@
                 <div class="modal-edit__body">
                     <div class="modal-edit__form">
                         @foreach($templates as $template)
-                            <a target="_blank" download
+                            <a
                                 href="{{
-                                    route('download.many', [
+                                    route('download.photos', [
                                        'orphans' => $orphansIds,
                                        'template' => $template,
                                        'search' => request('search'),

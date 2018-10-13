@@ -28,4 +28,14 @@ class Template extends Model
 		});
 	}
 	
+	/**
+	 * Relationship to the statistic
+	 *
+	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
+	 */
+	public function statistic()
+	{
+		return $this->hasMany(DownloadAccount::class);
+	}
+	
 }

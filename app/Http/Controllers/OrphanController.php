@@ -68,5 +68,29 @@ final class OrphanController extends OrphanControllerAbstract
 
         return redirect()->route('home');
     }
+	
+	public function statistic(Request $request, Orphan $orphan)
+	{
+		$templates = Template::all();
+		$statistics = $orphan->statistic()
+			->orderByDesc('created_at')
+			->paginate()
+			->appends($request->all());
+		
+		$countDownloads = [];
+		
+		foreach ($templates as $template) {
+			if (isset($countDownloads[$template->title])) {
+				$countDownloads[$template->title] += 1;
+			} else {
+				$countDownloads[$template->title] = 1;
+			}
+		}
+		
+		return view('client.pages.statistic')
+			->with('countDownloads', $countDownloads)
+			->with('statistics', $statistics);
+		
+    }
 
 }

@@ -26,7 +26,7 @@
         <meta name="apple-mobile-web-app-status-bar-style" content="#000">
     </head>
 
-    <body>
+    <body style="background: #f7f7f7;">
 
         @include('client.components.topside')
 
