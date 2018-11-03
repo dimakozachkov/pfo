@@ -13,6 +13,7 @@ use App\Models\Orphan;
 use Illuminate\Http\Request;
 use App\Services\PhotoUploader;
 use App\Common\Controllers\Controller;
+use Illuminate\Support\Carbon;
 
 abstract class OrphanControllerAbstract extends Controller
 {
@@ -80,6 +81,8 @@ abstract class OrphanControllerAbstract extends Controller
             'country_id', 'residence_id', 'birthday',
             'class', 'about',
         ]);
+
+        $data['birthday'] = Carbon::parse($data['birthday'])->toDateTimeString();
 
         if (count($data) > 0) {
             $orphan->update($data);

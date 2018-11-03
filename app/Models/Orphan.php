@@ -20,23 +20,23 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Orphan extends Model
 {
-	
+
 	protected $fillable = [
 		'first_name', 'last_name', 'address',
 		'birthday', 'class', 'country_id',
 		'residence_id', 'about',
 	];
-	
+
 	protected $with = [
 		'country',
 	];
-	
+
 	protected $perPage = 12;
-	
+
 	protected $dates = [
 		'birthday',
 	];
-	
+
 	/**
 	 * Relationship to a country
 	 *
@@ -46,7 +46,7 @@ class Orphan extends Model
 	{
 		return $this->belongsTo(Country::class);
 	}
-	
+
 	/**
 	 * Relationship to a residence
 	 *
@@ -56,7 +56,7 @@ class Orphan extends Model
 	{
 		return $this->belongsTo(Residence::class);
 	}
-	
+
 	/**
 	 * Relationship to photos
 	 *
@@ -66,7 +66,7 @@ class Orphan extends Model
 	{
 		return $this->hasMany(OrphanPhoto::class);
 	}
-	
+
 	/**
 	 * @return \Illuminate\Database\Eloquent\Relations\HasOne
 	 */
@@ -75,7 +75,7 @@ class Orphan extends Model
 		return $this->hasOne(OrphanPhoto::class)
 			->where('main', true);
 	}
-	
+
 	/**
 	 * Relationship to the statistic
 	 *
@@ -85,28 +85,28 @@ class Orphan extends Model
 	{
 		return $this->hasMany(DownloadAccount::class);
 	}
-	
+
 	protected static function boot()
 	{
 		parent::boot();
-		
+
 		static::creating(function ($orphan) {
 			$authUser = auth()->user();
 			$orphan->country_id = $authUser ? $authUser->country_id : 1;
 			$orphan->user_id = $authUser ? $authUser->id : 1;
 		});
-		
+
 		static::deleting(function ($orphan) {
 			$photos = $orphan->photos()->get();
-			
+
 			foreach ($photos as $photo) {
 				\Storage::disk('public')->delete("photos/{$photo->url}");
 				$photo->delete();
 			}
 		});
 	}
-	
-	
+
+
 	public function scopeFilter($query, $request)
 	{
 		if ($request->has('search') && !is_null($request->input('search'))) {
@@ -114,14 +114,14 @@ class Orphan extends Model
 				->orWhere('last_name', 'LIKE', '%' . $request->input('search') . '%')
 				->orWhere('id', $request->input('search'));
 		}
-		
+
 		if ($request->has('residence_id') && !is_null($request->input('residence_id'))) {
 			$query->where('residence_id', $request->input('residence_id'));
 		}
-		
+
 		return $query;
 	}
-	
+
 	/**
 	 * @return mixed
 	 */
@@ -129,7 +129,7 @@ class Orphan extends Model
 	{
 		return $this->birthday->diffInYears(Carbon::now());
 	}
-	
+
 	/**
 	 * @return mixed
 	 */
@@ -139,22 +139,22 @@ class Orphan extends Model
 			->first())
 			->url;
 	}
-	
+
 	public function getOrphanCodeAttribute()
 	{
 		$countryCode = $this->country()->first()->code;
 		$orphanCode = $this->id . '' . $countryCode;
-		
+
 		return $orphanCode;
 	}
-	
+
 	public function getFullNameAttribute()
 	{
 		return "{$this->first_name} {$this->last_name}";
 	}
-	
+
 	public function setBirthdayAttribute($date)
 	{
-		$this->attributes['birthday'] = Carbon::parse($date)->format('Y-m-d H:I:s');
+		$this->attributes['birthday'] = Carbon::parse($date)->toDateTimeString();
 	}
 }

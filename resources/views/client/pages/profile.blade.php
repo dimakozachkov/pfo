@@ -30,7 +30,7 @@
 
                             <div class="section-profile__box" style="cursor: pointer;">
                                 <img src="{{ asset('/storage/photos/') }}/{{ $country->icon }}" class="flag flag-ua section-profile__img"
-                                     alt="Ukraine" style="background: url({{ asset('/storage/photos/') }}/{{ $country->icon }}) no-repeat;">
+                                     alt="{{ $country->title }}" title="{{ $country->title }}" style="border: 1px solid #000">
                             </div>
                             <div class="section-profile__box" id="edit-company" style="cursor: pointer;">
                                 <img src="{{ asset('img/download.png') }}" alt="" class="section-profile__img">
@@ -116,7 +116,7 @@
                         @csrf
                         @method("PUT")
                         <p class="modal-edit__name">@lang('client/profile.place')</p>
-                        <select class="form-control" id="ResidenceId">
+                        <select class="form-control" id="ResidenceId" name="residence_id">
                             <option>-@lang('client/profile.select')-</option>
                             @foreach($residences as $residence)
                                 <option value="{{ $residence->id }}"

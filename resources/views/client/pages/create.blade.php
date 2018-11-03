@@ -10,6 +10,14 @@
                 <div class="content-block">
                     <form method="post" action="{{ route('orphans.store') }}" enctype="multipart/form-data">
                         @csrf
+                        <label for="countryId">Country</label>
+                        <select class="form-control" id="countryId" name="country_id">
+                            <option>----</option>
+                            @foreach($countries as $country)
+                                <option value="{{ $country->id }}" @if(auth()->user()->country_id === $country->id) selected @endif>{{ $country->title }}</option>
+                            @endforeach
+                        </select>
+
                         <label for="residenceId">@lang('client/create.place')</label>
                         <select class="form-control" id="residenceId" name="residence_id">
                             <option>----</option>

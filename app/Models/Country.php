@@ -15,7 +15,7 @@ use Illuminate\Http\Request;
 class Country extends Model
 {
     protected $fillable = [
-        'code', 'title',
+        'code', 'title', 'icon',
     ];
 
     protected $perPage = 15;

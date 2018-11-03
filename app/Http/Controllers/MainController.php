@@ -73,7 +73,7 @@ class MainController extends PhotoControllerAbstract
 	public function download(Request $request, Template $template)
 	{
 		$orphansIds = $request->input('orphans');
-		$orphans = Orphan::whereId($orphansIds)->get();
+		$orphans = Orphan::whereIn('id', $orphansIds)->get();
 		
 		return view('client.pages.download')
 			->with('orphans', $orphans)

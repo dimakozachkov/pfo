@@ -37,9 +37,11 @@ final class OrphanController extends OrphanControllerAbstract
 
     public function create()
     {
+        $countries = Country::all();
         $residences = auth()->user()->country->residences()->get();
 
         return view('client.pages.create')
+            ->with('countries', $countries)
             ->with('residences', $residences);
     }
 
@@ -68,7 +70,7 @@ final class OrphanController extends OrphanControllerAbstract
 
         return redirect()->route('home');
     }
-	
+
 	public function statistic(Request $request, Orphan $orphan)
 	{
 		$templates = Template::all();
@@ -76,9 +78,9 @@ final class OrphanController extends OrphanControllerAbstract
 			->orderByDesc('created_at')
 			->paginate()
 			->appends($request->all());
-		
+
 		$countDownloads = [];
-		
+
 		foreach ($templates as $template) {
 			if (isset($countDownloads[$template->title])) {
 				$countDownloads[$template->title] += 1;
@@ -86,11 +88,11 @@ final class OrphanController extends OrphanControllerAbstract
 				$countDownloads[$template->title] = 1;
 			}
 		}
-		
+
 		return view('client.pages.statistic')
 			->with('countDownloads', $countDownloads)
 			->with('statistics', $statistics);
-		
+
     }
 
 }

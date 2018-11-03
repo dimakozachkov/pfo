@@ -29,7 +29,7 @@ final class CountryController extends Controller
 	
 	    if ($request->hasFile('photo')) {
 		    $data['icon'] = $uploader->upload($request->file('photo'));
-	    }
+        }
 
         Country::create($data);
 
