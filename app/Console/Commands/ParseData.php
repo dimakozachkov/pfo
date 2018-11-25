@@ -240,7 +240,11 @@ class ParseData extends Command
                 ->attr('style')
         );
 
-        $randName = $this->storeImage($avatar);
+        $randName = "";
+
+        if (explode('/', $avatar) >  4) {
+            $randName = $this->storeImage($avatar);
+        }
 
         $orphan->photos()->create([
             'url' => $randName,
@@ -252,13 +256,16 @@ class ParseData extends Command
             ->each(function (Crawler $node) use ($orphan) {
                 $photo = $this->removeTag($node->attr('style'));
 
-                $randName = $this->storeImage($photo);
+                if (explode('/', $photo) >  4) {
 
-                $orphan->photos()->create([
-                    'url' => $randName,
-                    'weight' => rand(0, 99),
-                    'main' => false,
-                ]);
+                    $randName = $this->storeImage($photo);
+
+                    $orphan->photos()->create([
+                        'url' => $randName,
+                        'weight' => rand(0, 99),
+                        'main' => false,
+                    ]);
+                }
             });
     }
 
@@ -269,14 +276,20 @@ class ParseData extends Command
      */
     private function storeImage($photo): string
     {
-        $avatar = str_replace('thumb', 'photo', $photo);
-        $avatar = $this->url . $avatar;
+        $randName = "";
 
-        $randName = Str::random(32) . '.jpg';
-        $file = file_get_contents($avatar);
-        file_put_contents("./public/storage/photos/$randName", $file);
+        try {
+            $avatar = str_replace('thumb', 'photo', $photo);
+            $avatar = $this->url . $avatar;
 
-        return $randName;
+            $randName = Str::random(32) . '.jpg';
+            $file = file_get_contents($avatar);
+            file_put_contents("./public/storage/photos/$randName", $file);
+        } catch (\Exception $e) {
+            dd($photo);
+        } finally {
+            return $randName;
+        }
     }
 
     /**
