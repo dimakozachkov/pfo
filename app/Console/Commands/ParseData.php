@@ -252,17 +252,17 @@ class ParseData extends Command
                 ->attr('style')
         );
 
-        $randName = "";
-
         if (explode('/', $avatar) >  4) {
             $randName = $this->storeImage($avatar);
-        }
 
-        $orphan->photos()->create([
-            'url' => $randName,
-            'weight' => 100,
-            'main' => true,
-        ]);
+            if (strlen($randName) > 0) {
+                $orphan->photos()->create([
+                    'url' => $randName,
+                    'weight' => 100,
+                    'main' => true,
+                ]);
+            }
+        }
 
         $crawler->filter('a.open_window .gallery__img')
             ->each(function (Crawler $node) use ($orphan) {
@@ -272,11 +272,13 @@ class ParseData extends Command
 
                     $randName = $this->storeImage($photo);
 
-                    $orphan->photos()->create([
-                        'url' => $randName,
-                        'weight' => rand(0, 99),
-                        'main' => false,
-                    ]);
+                    if (strlen($randName) > 0) {
+                        $orphan->photos()->create([
+                            'url' => $randName,
+                            'weight' => rand(0, 99),
+                            'main' => false,
+                        ]);
+                    }
                 }
             });
     }
