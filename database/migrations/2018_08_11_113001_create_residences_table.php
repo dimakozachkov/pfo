@@ -19,7 +19,7 @@ class CreateResidencesTable extends Migration
             $table->string('title', 255);
 
             $table->integer('country_id')->unsigned()->index();
-            $table->foreign('country_id')->references('id')->on('countries')->onDelete('cascade');
+            $table->foreign('country_id')->references('id')->on('countries');
 
             $table->timestamps();
         });

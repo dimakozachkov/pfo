@@ -21,7 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->integer('country_id')->nullable()->unsigned()->index();
-            $table->foreign('country_id')->references('id')->on('countries')->onDelete('cascade');
+            $table->foreign('country_id')->references('id')->on('countries');
 
             $table->tinyInteger('role', false, true)
                 ->default(RoleAttributes::USER);

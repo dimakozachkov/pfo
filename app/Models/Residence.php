@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
  * Class Residence
  * @package App\Models
  *
+ * @property int    $id
  * @property int    $country_id
  * @property string $title
  */
