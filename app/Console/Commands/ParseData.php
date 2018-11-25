@@ -286,7 +286,7 @@ class ParseData extends Command
             $file = file_get_contents($avatar);
             file_put_contents("./public/storage/photos/$randName", $file);
         } catch (\Exception $e) {
-            dd($photo);
+            echo $e->getTraceAsString();
         } finally {
             return $randName;
         }
