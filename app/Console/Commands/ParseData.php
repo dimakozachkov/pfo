@@ -218,10 +218,9 @@ class ParseData extends Command
             $address = $address->text();
 
             $residence = $country->residences()
-                ->where('title', $address)
-                ->first();
+                ->firstOrCreate(['title' => $address]);
 
-            if (isset($residence) && !$residence->exists) {
+            if (!empty($residence->title)) {
                 $residence = $country->residences()->create([
                     'country_id' => $country->id,
                     'title' => $address,
