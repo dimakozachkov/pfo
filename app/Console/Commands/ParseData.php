@@ -162,7 +162,7 @@ class ParseData extends Command
                     $exp = explode('/', $birthday)[2];
                 } else {
                     $years = intval($birthday);
-                    $birthday = Carbon::now()->subYears($years)->toDateString();
+                    $birthday = Carbon::now()->subYears($years)->format('d/m/Y');
                     $exp = explode('/', $birthday)[2];
                 }
 
