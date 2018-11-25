@@ -156,7 +156,14 @@ class ParseData extends Command
             if (strlen($birthday) > 2 && strlen($birthday) <= 4) {
                 $birthday = Carbon::createFromFormat('Y-m-d', "$birthday-01-01")->toDateString();
             } elseif (strlen($birthday) > 4) {
-                $year = strlen(explode('/', $birthday)[2]) > 2;
+                $exp = explode('/', $birthday);
+
+                if (count($exp) > 2) {
+                    $exp = explode('/', $birthday)[2];
+                } else {
+                    $exp = explode('/', Carbon::now()->format('m/d/Y'))[2];
+                }
+                $year = strlen($exp) > 2;
                 if ($year) {
                     $birthday = Carbon::createFromFormat('m/d/Y', $birthday)->toDateString();
                 } else {
