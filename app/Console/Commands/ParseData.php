@@ -163,9 +163,12 @@ class ParseData extends Command
                 } else {
                     $exp = explode('/', Carbon::now()->format('m/d/Y'))[2];
                 }
-                $year = strlen($exp) > 2;
-                if ($year) {
+
+                if (strlen($exp) > 2) {
                     $birthday = Carbon::createFromFormat('m/d/Y', $birthday)->toDateString();
+                } elseif (strlen($exp) > 4) {
+                    $years = intval($birthday);
+                    $birthday = Carbon::now()->subYears($years)->toDateString();
                 } else {
                     $birthday = Carbon::createFromFormat('m/d/y', $birthday)->toDateString();
                 }
@@ -259,7 +262,7 @@ class ParseData extends Command
                 ->attr('style')
         );
 
-        if (explode('/', $avatar) >  4) {
+        if (explode('/', $avatar) > 4) {
             $randName = $this->storeImage($avatar);
 
             if (strlen($randName) > 0) {
@@ -275,7 +278,7 @@ class ParseData extends Command
             ->each(function (Crawler $node) use ($orphan) {
                 $photo = $this->removeTag($node->attr('style'));
 
-                if (explode('/', $photo) >  4) {
+                if (explode('/', $photo) > 4) {
 
                     $randName = $this->storeImage($photo);
 
