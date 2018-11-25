@@ -67,7 +67,7 @@ class RouteServiceProvider extends ServiceProvider
 
     protected function mapWebOrphanRoutes()
     {
-        Route::middleware(['web', 'auth'])
+        Route::middleware(['web'])
             ->namespace($this->namespace)
             ->group(base_path('routes/web/client/orphan.php'));
     }
