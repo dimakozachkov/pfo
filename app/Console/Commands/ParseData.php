@@ -212,21 +212,30 @@ class ParseData extends Command
                 ->where('title', $address)
                 ->first();
 
-            if (!$residence->exists) {
+            if (isset($residence) && !$residence->exists) {
                 $residence = $country->residences()->create([
                     'country_id' => $country->id,
                     'title' => $address,
                 ]);
-            }
 
-            $orphan = $residence->orphans()->create([
-                'first_name' => $first_name,
-                'last_name' => $last_name,
-                'birthday' => $birthday,
-                'class' => $class,
-                'user_id' => $user_id,
-                'about' => $aboutText,
-            ]);
+                $orphan = $residence->orphans()->create([
+                    'first_name' => $first_name,
+                    'last_name' => $last_name,
+                    'birthday' => $birthday,
+                    'class' => $class,
+                    'user_id' => $user_id,
+                    'about' => $aboutText,
+                ]);
+            } else {
+                $orphan = $country->orphans()->create([
+                    'first_name' => $first_name,
+                    'last_name' => $last_name,
+                    'birthday' => $birthday,
+                    'class' => $class,
+                    'user_id' => $user_id,
+                    'about' => $aboutText,
+                ]);
+            }
         } else {
             $orphan = $country->orphans()->create([
                 'first_name' => $first_name,
