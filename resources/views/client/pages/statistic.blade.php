@@ -38,7 +38,7 @@
                     <tbody>
                     @foreach($statistics as $statistic)
                         <tr>
-                            <td>{{ $statistic->user->name }}</td>
+                            <td>{{ $statistic->user->login }}</td>
                             <td>{{ $statistic->template->title }}</td>
                             <td>{{ $statistic->created_at->format('Y-m-d') }}</td>
                         </tr>

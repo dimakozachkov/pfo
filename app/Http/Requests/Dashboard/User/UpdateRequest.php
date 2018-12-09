@@ -24,10 +24,8 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'email'         => 'sometimes|email',
-            'name'          => 'sometimes|string|max:255',
-            'login'         => 'sometimes|string|max:255|unique:users,login',
-            'password'      => 'sometimes|min:6|confirmed',
+            'email'         => 'sometimes|nullable|email',
+            'password'      => 'sometimes|nullable|min:6|confirmed',
             'role'          => 'sometimes|integer',
             'country'       => 'sometimes|exists:countries,id',
         ];

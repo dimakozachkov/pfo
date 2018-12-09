@@ -8,12 +8,12 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 /**
  * App\Models\User
  *
- * @property string $name
  * @property string $email
  * @property string $password
  * @property int    $country_id
  * @property int    $role
  * @property string $login
+ * @property int orphan_id
  *
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[]
  *                $notifications
@@ -29,8 +29,8 @@ class User extends Authenticatable
 	 * @var array
 	 */
 	protected $fillable = [
-		'name', 'email', 'password',
-		'country_id', 'role', 'login',
+		'email', 'password', 'country_id',
+        'role', 'login', 'orphan_id',
 	];
 	
 	/**

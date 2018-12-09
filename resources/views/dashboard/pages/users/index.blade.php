@@ -41,12 +41,18 @@
                         <td>{{ $loop->index + 1 }}</td>
                         <td>
                             <a href="{{ route('dashboard.users.edit', $user) }}">
-                                {{ $user->name }}
+                                {{ $user->login }}
                             </a>
                         </td>
-                        <td>{{ $user->email }}</td>
-                        <td><span class="badge bg-red">{{ $user->role }}</span></td>
-                        <td>Country</td>
+                        <td>
+                            <a href="{{ route('dashboard.users.edit', $user) }}">
+                                {{ $user->email }}
+                            </a>
+                        </td>
+                        <td>
+                            <span class="badge bg-red">{{ \App\Attributes\RoleAttributes::ROLES_TEXT[$user->role] }}</span>
+                        </td>
+                        <td>{{ $user->country ? $user->country->title : '' }}</td>
                         <td>
                             <form action="{{ route('dashboard.users.destroy', $user) }}" method="post">
                                 @csrf

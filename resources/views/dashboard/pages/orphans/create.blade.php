@@ -44,15 +44,6 @@
                     <!-- /.input group -->
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label>Class:</label>
-                    <div class="input-group">
-                        <input type="number" min="0" value="0" class="form-control pull-right" name="class">
-                    </div>
-                    <!-- /.input group -->
-                </div>
-            </div>
         </div>
         <div class="col-md-12">
             <div class="form-group" style="margin-right: 0;">
@@ -68,6 +59,12 @@
             <div class="form-group">
                 <label for="about">About</label>
                 <textarea class="form-control" rows="3" name="about" id="about"></textarea>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="contact">Contacts</label>
+                <textarea class="form-control" rows="3" name="contact" id="contact"></textarea>
             </div>
         </div>
         <div class="col-md-12">

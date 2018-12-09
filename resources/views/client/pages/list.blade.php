@@ -29,7 +29,7 @@
                                     <div class="gallery-bot__img" style="background-image: url(/storage/photos/{{ $orphan->main_photo }});"></div>
                                 </a>
                                 <p class="gallery-bot__name">{{ $orphan->first_name }} {{ $orphan->last_name }}</p>
-                                <p class="gallery-bot__name gallery-bot__name_date">{{ $orphan->id }}</p>
+                                <p class="gallery-bot__name gallery-bot__name_date">{{ $orphan->orphan_code }}</p>
                             </div>
                         </div>
                     @endforeach

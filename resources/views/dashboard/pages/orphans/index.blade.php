@@ -42,7 +42,7 @@
                         <td>
                             <a href="{{ route('dashboard.orphans.edit', $orphan) }}">{{ $orphan->first_name }} {{ $orphan->last_name }}</a>
                         </td>
-                        <td>{{ $orphan->birthday->format('d/M/y') }}</td>
+                        <td>{{ $orphan->birthday ? $orphan->birthday->format('d/M/Y') : '' }}</td>
                         <td><span class="badge bg-olive" style="color: white">{{ $orphan->oldYears }}</span></td>
                         <td><span class="badge bg-red">{{ $orphan->country->code }}</span></td>
                         <td>

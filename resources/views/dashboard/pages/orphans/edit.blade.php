@@ -43,17 +43,7 @@
                             <i class="fa fa-calendar"></i>
                         </div>
                         <input type="text" class="form-control pull-left" id="datepicker" name="birthday"
-                               value="{{ $orphan->birthday->format('m/d/y') }}">
-                    </div>
-                    <!-- /.input group -->
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label>Class:</label>
-                    <div class="input-group">
-                        <input type="number" min="0" class="form-control pull-right" name="class"
-                               value="{{ $orphan->class }}">
+                               value="{{ $orphan->birthday ? $orphan->birthday->format('d/M/Y') : '' }}">
                     </div>
                     <!-- /.input group -->
                 </div>
@@ -85,6 +75,12 @@
             <div class="form-group">
                 <label for="about">About</label>
                 <textarea class="form-control" rows="3" name="about" id="about">{{ $orphan->about }}"</textarea>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="contact">Contacts</label>
+                <textarea class="form-control" rows="3" name="contact" id="contact">{{ $orphan->contact }}"</textarea>
             </div>
         </div>
         <div class="col-md-12">

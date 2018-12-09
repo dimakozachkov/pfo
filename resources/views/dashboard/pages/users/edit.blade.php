@@ -1,7 +1,7 @@
 @extends('dashboard.master')
 
 @php
-    $title = 'Edit';
+    $title = "Edit $user->login user";
     $selectMenu = 'users';
     $subSelectMenu = 'list';
 @endphp
@@ -21,13 +21,6 @@
 
                     <div class="col-sm-9">
                         <input type="text" name="email" class="form-control" id="inputEmail" placeholder="Email" value="{{ $user->email }}">
-                    </div>
-                </div>
-                <div class="form-group" style="margin-right: 0;">
-                    <label for="inputUsername" class="col-sm-3 control-label">Username</label>
-
-                    <div class="col-sm-9">
-                        <input type="text" name="name" class="form-control" id="inputUsername" placeholder="Username" value="{{ $user->name }}">
                     </div>
                 </div>
                 <div class="form-group" style="margin-right: 0;">

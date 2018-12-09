@@ -29,15 +29,19 @@
                             <p class="section-profile__office">{{ $orphan->orphan_code }}</p>
 
                             <div class="section-profile__box" style="cursor: pointer;">
-                                <img src="{{ asset('/storage/photos/') }}/{{ $country->icon }}" class="flag flag-ua section-profile__img"
-                                     alt="{{ $country->title }}" title="{{ $country->title }}" style="border: 1px solid #000">
+                                <img src="{{ asset('/storage/photos/') }}/{{ $country->icon }}"
+                                     class="flag flag-ua section-profile__img"
+                                     alt="{{ $country->title }}" title="{{ $country->title }}"
+                                     style="border: 1px solid #000">
                             </div>
                             <div class="section-profile__box" id="edit-company" style="cursor: pointer;">
                                 <img src="{{ asset('img/download.png') }}" alt="" class="section-profile__img">
                             </div>
                             @can('view-statistic', $orphan)
-                                <a href="{{ route('orphans.statistic', $orphan) }}" class="section-profile__box" id="edit-company" style="cursor: pointer;">
-                                    <img src="{{ asset('img/statistic.png') }}" alt="Show statistic" class="section-profile__img">
+                                <a href="{{ route('orphans.statistic', $orphan) }}" class="section-profile__box"
+                                   id="edit-company" style="cursor: pointer;">
+                                    <img src="{{ asset('img/statistic.png') }}" alt="Show statistic"
+                                         class="section-profile__img">
                                 </a>
                             @endcan
                         </div>
@@ -46,23 +50,52 @@
                 <div class="col-xs-12">
                     <div class="section__list section__list_company">
                         @if (isset($orphan->residence))
-                            <div class="section__item"><img src="/img/companies-red.png"
-                                                            alt="">{{ optional($orphan->residence)->title }}</div>
+                            <div class="section__item">
+                                <img src="/img/companies-red.png">
+                                {{ optional($orphan->residence)->title }}
+                            </div>
                         @endif
                         @if (isset($orphan->birthday))
-                            <div class="section__item"><img src="/img/birthday.png"
-                                                            alt="">{{ $orphan->birthday->format('d/M/Y') }}</div>
-                        @endif
-                        @if ($orphan->class > 0)
-                            <div class="section__item"><img src="/img/classroom.png" alt="">{{ $orphan->class }}</div>
+                            <div class="section__item">
+                                <img src="/img/birthday.png">
+                                {{ $orphan->birthday ? $orphan->birthday->format('d/M/Y') : '' }}
+                            </div>
                         @endif
                     </div>
                 </div>
-                <div class="col-md-12">
-                    <div class="section__item">{{ $orphan->about }}</div>
-                </div>
             </div>
         </section>
+
+        @isset($orphan->about)
+            <section class="section">
+                <div class="section__padding">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h3 class="section__title section__title_margin">About</h3>
+                        </div>
+                        <div class="col-12 section__item">
+                            <p style="text-indent: 1.5em; margin-top: 0">{{ $orphan->about }}</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        @endisset
+
+        @isset($orphan->contact)
+            <section class="section">
+                <div class="section__padding">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h3 class="section__title section__title_margin">Contacts</h3>
+                        </div>
+                        <div class="col-12 section__item">
+                            <p style="text-indent: 1.5em; margin-top: 0">{{ $orphan->contact }}</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        @endisset
+
         <br>
         <!-- -PHOTO SECTION  -->
         <section class="section">
@@ -126,23 +159,27 @@
 
                         <p class="modal-edit__name">@lang('client/profile.personal-data')</p>
 
-                        <input type="text" placeholder="@lang('client/profile.name')" class="modal-edit__field" id="first_name"
+                        <input type="text" placeholder="@lang('client/profile.name')" class="modal-edit__field"
+                               id="first_name"
                                name="first_name" value="{{ $orphan->first_name }}">
                         <input type="text" placeholder="client/profile.surname" class="modal-edit__field" id="last_name"
                                name="last_name" value="{{ $orphan->last_name }}">
 
-                        <input type="text" class="modal-edit__field input-group date" placeholder="@lang('client/profile.birthday')"
+                        <input type="text" class="modal-edit__field input-group date"
+                               placeholder="@lang('client/profile.birthday')"
                                id="datetimepicker"
                                name="birthday"
-                               value="{{ $orphan->birthday->format('d.m.Y') }}">
+                               value="{{ $orphan->birthday ? $orphan->birthday->format('d/M/Y') : '' }}">
 
-                        <input type="number" min="0" class="modal-edit__field" placeholder="@lang('client/profile.class')"
-                               name="class"
-                               value="{{ $orphan->class }}">
                         <p class="modal-edit__name">@lang('client/profile.other')</p>
                         <textarea class="modal-edit__field" placeholder="@lang('client/profile.other')"
                                   style="height: 100px; resize: none" id="about"
                                   name="about">{{ $orphan->about }}</textarea>
+
+                        <p class="modal-edit__name">Contacts</p>
+                        <textarea class="modal-edit__field" placeholder="Contacts"
+                                  style="height: 100px; resize: none" id="contact"
+                                  name="contact">{{ $orphan->contact }}</textarea>
 
                         <div class="form-group save-changes">
                             <input id="Done" class="btn btn-primary" type="submit"
@@ -171,7 +208,8 @@
                             @csrf
                             @method('PUT')
                             <input name="photo" type="FILE" size="50">
-                            <input type="submit" class="section-form__btn" id="modal-avatar_btn" value="@lang('client/profile.save')">
+                            <input type="submit" class="section-form__btn" id="modal-avatar_btn"
+                                   value="@lang('client/profile.save')">
                             <button class="modal-edit__close-text" type="reset">@lang('client/profile.cancel')</button>
                         </form>
                     </div>
@@ -192,7 +230,8 @@
                 <div class="modal-edit__body">
                     <div class="modal-edit__form">
                         @foreach($templates as $template)
-                            <a target="_blank" download href="{{ route('download', ['orphan' => $orphan, 'template' => $template]) }}">{{ $template->title }}</a>
+                            <a target="_blank" download
+                               href="{{ route('download', ['orphan' => $orphan, 'template' => $template]) }}">{{ $template->title }}</a>
                             <br>
                         @endforeach
                     </div>
@@ -221,7 +260,10 @@
         </div>
         <div class="close-wrap"></div>
     </main>
-    <script src="/js/JsHttpRequest.js"></script>
-    <script src="/js/Registration.js"></script>
-    <script src="/js/ReqObj.js"></script>
+
+    @push('scripts')
+        <script src="/js/JsHttpRequest.js"></script>
+        <script src="/js/Registration.js"></script>
+        <script src="/js/ReqObj.js"></script>
+    @endpush
 @endsection

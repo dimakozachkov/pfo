@@ -38,8 +38,7 @@ abstract class OrphanControllerAbstract extends Controller
     {
         $data = $request->only([
             'first_name', 'last_name', 'address',
-            'country_id', 'residence_id', 'birthday',
-            'class', 'about',
+            'country_id', 'residence_id', 'birthday', 'about',
         ]);
 
         $orphan = Orphan::create($data);
@@ -78,8 +77,8 @@ abstract class OrphanControllerAbstract extends Controller
     {
         $data = $request->only([
             'first_name', 'last_name', 'address',
-            'country_id', 'residence_id', 'birthday',
-            'class', 'about',
+            'country_id', 'residence_id', 'birthday', 'about',
+            'orphan_id',
         ]);
 
         $data['birthday'] = Carbon::parse($data['birthday'])->toDateTimeString();

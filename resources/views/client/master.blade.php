@@ -24,6 +24,8 @@
         <meta name="msapplication-navbutton-color" content="#000">
         <!-- iOS Safari -->
         <meta name="apple-mobile-web-app-status-bar-style" content="#000">
+
+        @stack('styles')
     </head>
 
     <body style="background: #f7f7f7;">
@@ -55,7 +57,7 @@
         <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->
 
-        @yield('scripts')
+        @stack('scripts')
 
     </body>
 

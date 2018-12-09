@@ -56,11 +56,11 @@ return [
 	
 	    'mysql_pfo' => [
 		    'driver' => 'mysql',
-		    'host' => 'eushared02.twinservers.net',
+		    'host' => 'localhost',
 		    'port' => '3306',
 		    'database' => 'agapeuac_pfo',
-		    'username' => 'agapeuac_user',
-		    'password' => '415la0YdsR',
+		    'username' => 'root',
+		    'password' => '',
 		    'unix_socket' => env('DB_SOCKET', ''),
 		    'charset' => 'utf8mb4',
 		    'collation' => 'utf8mb4_unicode_ci',

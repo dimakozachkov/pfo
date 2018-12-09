@@ -5,7 +5,7 @@
         <!-- Sidebar user panel -->
         <div class="user-panel">
             <div class="pull-left info">
-                <p>{{ auth()->user()->name ?? "User name" }}</p>
+                <p>{{ auth()->user()->login ?? "User name" }}</p>
             </div>
         </div>
         <!-- sidebar menu: : style can be found in sidebar.less -->

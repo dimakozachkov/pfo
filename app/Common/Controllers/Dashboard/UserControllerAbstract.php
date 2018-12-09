@@ -36,7 +36,9 @@ abstract class UserControllerAbstract extends Controller
      */
     public function index(Request $request)
     {
-        $users = User::filter($request)->paginate();
+        $users = User::with('country')
+            ->filter($request)
+            ->paginate();
 
         return $users;
     }
@@ -57,7 +59,7 @@ abstract class UserControllerAbstract extends Controller
     public function store(StoreRequest $request)
     {
         $data = $request->only([
-            'email', 'name', 'password', 'role', 'login',
+            'email', 'password', 'role', 'login',
         ]);
 
         $data['password'] = bcrypt($data['password']);
@@ -81,11 +83,16 @@ abstract class UserControllerAbstract extends Controller
     public function update(UpdateRequest $request, User $user)
     {
         $data = $request->only([
-            'email', 'name', 'password', 'role',
+            'email', 'password', 'role',
         ]);
 
-        if ($request->has('password')) {
+        $hasPassword = $request->has('password')
+            && !empty($request->input('password'));
+
+        if ($hasPassword) {
             $data['password'] = bcrypt($data['password']);
+        } else {
+            unset($data['password']);
         }
 
         if ($request->has('country')) {

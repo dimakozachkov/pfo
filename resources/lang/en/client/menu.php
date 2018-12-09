@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'add-info' => 'ADD INFORMATION',
+    'add-info' => 'Add an orphan',
     'place' => 'Place of residence',
     'search' => 'Search',
 ];

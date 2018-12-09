@@ -38,7 +38,11 @@ final class OrphanController extends OrphanControllerAbstract
     public function create()
     {
         $countries = Country::all();
-        $residences = auth()->user()->country->residences()->get();
+        $residences = auth()->user()
+            ->country()
+            ->first()
+            ->residences()
+            ->get();
 
         return view('client.pages.create')
             ->with('countries', $countries)

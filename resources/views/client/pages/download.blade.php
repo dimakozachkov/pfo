@@ -20,7 +20,9 @@
                                 }
                             </style>
                             @foreach($orphans as $orphan)
-                                <a href="{{ route('download', ['orphan' => $orphan, 'template' => $template]) }}" download=""><img src="/storage/photos/{{ $orphan->main_photo }}" alt="image" width="120"></a>
+                                <a href="{{ route('download', ['orphan' => $orphan, 'template' => $template]) }}"
+                                   download=""><img src="/storage/photos/{{ $orphan->main_photo }}" alt="image"
+                                                    width="120"></a>
                             @endforeach
 
                             <div style="text-align:center">Photos added to archive<br>
@@ -41,7 +43,7 @@
             </div>
         </div>
     </section>
-    @section('scripts')
+    @push('scripts')
         <script language="javascript">
             $('document').ready(function () {
                 @foreach($orphans as $orphan)
@@ -51,5 +53,5 @@
                 @endforeach
             });
         </script>
-    @endsection
+    @endpush
 @endsection

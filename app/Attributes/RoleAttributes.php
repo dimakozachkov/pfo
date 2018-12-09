@@ -16,7 +16,10 @@ abstract class RoleAttributes
 {
 
     public const ROOT      = 0;
-    public const ADMIN     = 1;
-    public const USER      = 2;
+    public const USER      = 1;
 
+    public const ROLES_TEXT = [
+        'root',
+        'user'
+    ];
 }

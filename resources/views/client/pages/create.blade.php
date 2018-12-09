@@ -9,18 +9,18 @@
                 </div>
                 <div class="content-block">
                     <form method="post" action="{{ route('orphans.store') }}" enctype="multipart/form-data">
-                        @csrf
-                        <label for="countryId">Country</label>
+                    @csrf
+                    <!--label for="countryId">Country</label>
                         <select class="form-control" id="countryId" name="country_id">
                             <option>----</option>
                             @foreach($countries as $country)
-                                <option value="{{ $country->id }}" @if(auth()->user()->country_id === $country->id) selected @endif>{{ $country->title }}</option>
+                        <option value="{{ $country->id }}" @if(auth()->user()->country_id === $country->id) selected @endif>{{ $country->title }}</option>
                             @endforeach
-                        </select>
+                            </select-->
 
                         <label for="residenceId">@lang('client/create.place')</label>
                         <select class="form-control" id="residenceId" name="residence_id">
-                            <option>----</option>
+                            <option value="">----</option>
                             @foreach($residences as $residence)
                                 <option value="{{ $residence->id }}">{{ $residence->title }}</option>
                             @endforeach
@@ -31,15 +31,22 @@
                         <label for="personal-data" class="change-password">@lang('client/create.personal-data')</label>
 
                         <div id="personal-data">
-                            <input type="text" placeholder="@lang('client/create.name')" class="form-control" id="ChildName" name="first_name"
+                            <input type="text" placeholder="@lang('client/create.name')" class="form-control"
+                                   id="ChildName" name="first_name"
                                    style="margin-bottom: 5px;">
-                            <input type="text" placeholder="@lang('client/create.surname')" class="form-control" id="ChildLastname"
+                            <input type="text" placeholder="@lang('client/create.surname')" class="form-control"
+                                   id="ChildLastname"
                                    name="last_name" style="margin-bottom: 5px;">
 
-                            <input type="text" class="modal-edit__field input-group date" placeholder="@lang('client/create.birthday')"
-                                   id="datetimepicker" name="birthday" style="margin-bottom: 5px;">
+                            <input type="date" class="modal-edit__field input-group date"
+                                   placeholder="@lang('client/create.birthday')"
+                                   id="datepicker" name="birthday" style="margin-bottom: 5px;">
                             <textarea class="form-control" placeholder="@lang('client/create.other-important-notes')"
-                                      id="ChildNote" name="about"></textarea>
+                                      id="ChildNote" name="about" rows="5"></textarea>
+
+                            <br>
+                            <textarea class="form-control" placeholder="Contacts"
+                                      id="ChildNote" name="contact"></textarea>
 
 
                             <div class="from-group">

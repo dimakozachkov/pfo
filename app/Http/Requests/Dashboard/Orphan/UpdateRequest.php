@@ -25,8 +25,6 @@ class UpdateRequest extends FormRequest
     {
         return [
             'birthday'                      => 'sometimes|date',
-            'class'                         => 'sometimes|integer',
-
             'photos'                        => 'sometimes|array|min:1',
             'photos.*.url'                  => 'sometimes|string',
             'photos.*.main'                 => 'sometimes|boolean',

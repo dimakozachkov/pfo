@@ -13,25 +13,26 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $last_name
  * @property string $address
  * @property        $birthday
- * @property int    $class
  * @property int    $country_id
  * @property int    $residence_id
  * @property string $about
+ * @property string $contact
  */
 class Orphan extends Model
 {
 
 	protected $fillable = [
 		'first_name', 'last_name', 'address',
-		'birthday', 'class', 'country_id',
-		'residence_id', 'about',
+		'birthday', 'country_id',
+		'residence_id', 'about', 'contact',
+        'orphan_id',
 	];
 
 	protected $with = [
 		'country',
 	];
 
-	protected $perPage = 12;
+	protected $perPage = 1200;
 
 	protected $dates = [
 		'birthday',
@@ -96,6 +97,14 @@ class Orphan extends Model
 			$orphan->user_id = $authUser ? $authUser->id : 1;
 		});
 
+		static::created(function ($orphan) {
+            if (empty($orphan->orphan_id) || $orphan->orphan_id == 0) {
+                $orphanId = Orphan::latest()->first()->orphan_id;
+                $orphan->orphan_id = $orphanId + 1;
+                $orphan->save();
+            }
+        });
+
 		static::deleting(function ($orphan) {
 			$photos = $orphan->photos()->get();
 
@@ -112,7 +121,7 @@ class Orphan extends Model
 		if ($request->has('search') && !is_null($request->input('search'))) {
 			$query->where('first_name', 'LIKE', '%' . $request->input('search') . '%')
 				->orWhere('last_name', 'LIKE', '%' . $request->input('search') . '%')
-				->orWhere('id', $request->input('search'));
+				->orWhere('orphan_id', $request->input('search'));
 		}
 
 		if ($request->has('residence_id') && !is_null($request->input('residence_id'))) {
@@ -127,7 +136,7 @@ class Orphan extends Model
 	 */
 	public function getOldYearsAttribute()
 	{
-		return $this->birthday->diffInYears(Carbon::now());
+		return $this->birthday ? $this->birthday->diffInYears(Carbon::now()) : '';
 	}
 
 	/**
@@ -143,7 +152,7 @@ class Orphan extends Model
 	public function getOrphanCodeAttribute()
 	{
 		$countryCode = $this->country()->first()->code;
-		$orphanCode = $this->id . '' . $countryCode;
+		$orphanCode = $this->orphan_id . '' . $countryCode;
 
 		return $orphanCode;
 	}

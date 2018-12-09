@@ -25,8 +25,6 @@ class StoreRequest extends FormRequest
     {
         return [
             'birthday' =>                   'required|date',
-            'class' =>                      'required|integer',
-
             'photo'                        => 'sometimes|string',
         ];
     }

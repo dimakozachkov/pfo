@@ -36,7 +36,7 @@ class MainController extends PhotoControllerAbstract
 
     public function country(Country $country)
     {
-        $orphans = $country->orphans()->paginate();
+        $orphans = $country->orphans()->orderByDesc('orphan_id')->paginate();
 
         return view('client.pages.list')
             ->with('country', $country)
@@ -45,14 +45,14 @@ class MainController extends PhotoControllerAbstract
 	
 	public function find(Request $request)
     {
-        $orphans = Orphan::filter($request)->paginate();
-        $residences = Residence::all();
+        $orphans = Orphan::filter($request)->orderByDesc('orphan_id')->paginate();
+        $countries = Country::with('residences')->get();
         $templates = Template::all();
         
         $title = '';
         
-        if ($request->has('residence_id')) {
-        	$title = Residence::find($request->input('residence_id'))->title;
+        if ($request->has('residence_id') && !empty($request->input('residence_id'))) {
+        	$title = Residence::findOrFail($request->input('residence_id'))->title;
         } elseif ($request->has('search')) {
         	$search = $request->input('search');
         	
@@ -63,7 +63,7 @@ class MainController extends PhotoControllerAbstract
 	        ->pluck('id')->toArray();
         
         return view('client.pages.find')
-            ->with('residences', $residences)
+            ->with('countries', $countries)
             ->with('orphans', $orphans)
             ->with('templates', $templates)
 	        ->with('title', $title)

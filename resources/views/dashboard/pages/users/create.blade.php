@@ -31,13 +31,6 @@
                     </div>
                 </div>
                 <div class="form-group" style="margin-right: 0;">
-                    <label for="inputUsername" class="col-sm-3 control-label">Username</label>
-
-                    <div class="col-sm-9">
-                        <input type="text" name="name" class="form-control" id="inputUsername" placeholder="Username">
-                    </div>
-                </div>
-                <div class="form-group" style="margin-right: 0;">
                     <label for="inputPassword" class="col-sm-3 control-label">Password</label>
 
                     <div class="col-sm-9">
