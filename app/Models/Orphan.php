@@ -32,7 +32,7 @@ class Orphan extends Model
 		'country',
 	];
 
-	protected $perPage = 1200;
+	protected $perPage = 12;
 
 	protected $dates = [
 		'birthday',
