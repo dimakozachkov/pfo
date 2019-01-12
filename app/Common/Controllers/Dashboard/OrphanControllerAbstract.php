@@ -8,6 +8,7 @@
 
 namespace App\Common\Controllers\Dashboard;
 
+use App\Events\OrphanUpdatedEvent;
 use App\Models\User;
 use App\Models\Orphan;
 use Illuminate\Http\Request;
@@ -111,6 +112,8 @@ abstract class OrphanControllerAbstract extends Controller
                 ]);
             }
         }
+
+        event(new OrphanUpdatedEvent($orphan));
 
         return $orphan;
     }

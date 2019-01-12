@@ -96,12 +96,12 @@ class User extends Authenticatable
      */
     public function subscribe(Orphan $orphan): void
     {
-        $exist = Subscription::where('user_id', $this->id)
+        $exist = OrphanUser::where('user_id', $this->id)
             ->where('orphan_id', $orphan->id)
             ->exists();
 
         if (!$exist) {
-            Subscription::create([
+            OrphanUser::create([
                 'user_id' => $this->id,
                 'orphan_id' => $orphan->id,
             ]);

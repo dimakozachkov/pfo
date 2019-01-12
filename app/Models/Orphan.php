@@ -140,9 +140,9 @@ class Orphan extends Model
 		return $this->birthday ? $this->birthday->diffInYears(Carbon::now()) : '';
 	}
 
-	/**
-	 * @return mixed
-	 */
+    /**
+     * @return mixed
+     */
 	public function getMainPhotoAttribute()
 	{
 		return optional($this->photos()->where('main', 1)
@@ -150,7 +150,10 @@ class Orphan extends Model
 			->url;
 	}
 
-	public function getOrphanCodeAttribute()
+    /**
+     * @return string
+     */
+	public function getOrphanCodeAttribute(): string
 	{
 		$countryCode = $this->country()->first()->code;
 		$orphanCode = $this->orphan_id . $countryCode;
@@ -158,13 +161,28 @@ class Orphan extends Model
 		return $orphanCode;
 	}
 
-	public function getFullNameAttribute()
+    /**
+     * @return string
+     */
+	public function getFullNameAttribute(): string
 	{
 		return "{$this->first_name} {$this->last_name}";
 	}
 
+    /**
+     * @param $date
+     */
 	public function setBirthdayAttribute($date)
 	{
 		$this->attributes['birthday'] = Carbon::parse($date)->toDateTimeString();
 	}
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function subscriptions()
+    {
+        return $this->hasMany(OrphanUser::class);
+	}
+
 }

@@ -9,7 +9,7 @@
 namespace App\Common\Controllers\Dashboard;
 
 use App\Attributes\RoleAttributes;
-use App\Events\UserCreatedEvent;
+use App\Events\OrphanUpdatedEvent;
 use App\Http\Requests\Dashboard\User\StoreRequest;
 use App\Http\Requests\Dashboard\User\UpdateRequest;
 use App\Models\Country;
@@ -67,7 +67,7 @@ abstract class UserControllerAbstract extends Controller
 
         $user = User::create($data);
 
-        event(new UserCreatedEvent($user));
+        event(new OrphanUpdatedEvent($user));
 
         return $user;
     }
@@ -102,7 +102,7 @@ abstract class UserControllerAbstract extends Controller
         $user->update($data);
 
         if ($request->has('email')) {
-            event(new UserCreatedEvent($user));
+            event(new OrphanUpdatedEvent($user));
         }
 
         return $user;
