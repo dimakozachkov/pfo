@@ -3,8 +3,13 @@
 @php
     $title = trans('dashboard/app.users.add');
     $selectMenu = 'layouts';
-    $subSelectMenu = 'add';
+    $subSelectMenu = 'list';
 @endphp
+
+@push('breadcrums')
+    <li><a href="{{ route('dashboard.templates.index') }}"><i class="fa fa-book"></i> Layouts</a></li>
+    <li class="active"><i class="fa fa-edit"></i> Edit</li>
+@endpush
 
 @section('content')
     <div class="box box-primary">
@@ -16,12 +21,11 @@
             @csrf
             @method('PUT')
             <div class="box-body">
-                <br>
-                <div class="form-group" style="margin-right: 0;">
+                <div class="form-group">
                     <label for="inputTitle" class="col-sm-3 control-label">Title</label>
 
                     <div class="col-sm-9">
-                        <input type="text" name="email" class="form-control" id="inputTitle" placeholder="Title"
+                        <input type="text" name="title" class="form-control" id="inputTitle" placeholder="Title"
                                value="{{ $template->title }}">
                     </div>
                 </div>

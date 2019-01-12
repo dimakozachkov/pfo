@@ -6,6 +6,10 @@
     $subSelectMenu = 'list';
 @endphp
 
+@push('breadcrums')
+    <li class="active"><i class="fa fa-home"></i> Residences</li>
+@endpush
+
 @section('content')
     <div class="box box-primary">
         <div class="box-header with-border">
@@ -44,7 +48,8 @@
                         </td>
                         <td>{{ $residence->country->title }}</td>
                         <td>
-                            <form action="{{ route('dashboard.residences.destroy', $residence) }}" method="post">
+                            <form action="{{ route('dashboard.residences.destroy', $residence) }}" method="post"
+                                  class="pull-right">
                                 @csrf
                                 @method('delete')
                                 <button type="submit" class="btn btn-danger btn-xs">Delete</button>

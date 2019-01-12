@@ -6,6 +6,11 @@
     $subSelectMenu = 'list';
 @endphp
 
+@push('breadcrums')
+    <li><a href="{{ route('dashboard.users.index') }}"><i class="fa fa-user"></i> Users</a></li>
+    <li class="active"><i class="fa fa-edit"></i> Edit</li>
+@endpush
+
 @section('content')
     <div class="box box-primary">
         <div class="box-header with-border">

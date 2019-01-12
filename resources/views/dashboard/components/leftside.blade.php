@@ -3,8 +3,8 @@
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
         <!-- Sidebar user panel -->
-        <div class="user-panel">
-            <div class="pull-left info">
+        <div class="user-panel" style="padding: 7px 0px 0px 0px;">
+            <div class="text-center" style="color: white">
                 <p>{{ auth()->user()->login ?? "User name" }}</p>
             </div>
         </div>

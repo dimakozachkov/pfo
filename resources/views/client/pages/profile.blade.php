@@ -58,7 +58,7 @@
                         @if (isset($orphan->birthday))
                             <div class="section__item">
                                 <img src="/img/birthday.png">
-                                {{ $orphan->birthday ? $orphan->birthday->format('d/M/Y') : '' }}
+                                {{ $orphan->birthday ? $orphan->birthday->format('d/m/Y') : '' }}
                             </div>
                         @endif
                     </div>
@@ -169,7 +169,7 @@
                                placeholder="@lang('client/profile.birthday')"
                                id="datetimepicker"
                                name="birthday"
-                               value="{{ $orphan->birthday ? $orphan->birthday->format('d/M/Y') : '' }}">
+                               value="{{ $orphan->birthday ? $orphan->birthday->format('d/m/Y') : '' }}">
 
                         <p class="modal-edit__name">@lang('client/profile.other')</p>
                         <textarea class="modal-edit__field" placeholder="@lang('client/profile.other')"

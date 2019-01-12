@@ -6,6 +6,11 @@
     $subSelectMenu = 'add';
 @endphp
 
+@push('breadcrums')
+    <li><a href="{{ route('dashboard.residences.index') }}"><i class="fa fa-home"></i> Residences</a></li>
+    <li class="active"><i class="fa fa-plus"></i> Add</li>
+@endpush
+
 @section('content')
     <div class="box box-primary">
         <!-- form start -->

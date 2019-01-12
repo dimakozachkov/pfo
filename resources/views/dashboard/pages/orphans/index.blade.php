@@ -6,6 +6,10 @@
     $subSelectMenu = 'list';
 @endphp
 
+@push('breadcrums')
+    <li class="active"><i class="fa fa-address-book"></i> Orphans</li>
+@endpush
+
 @section('content')
     <div class="box box-primary">
         <div class="box-header with-border">
@@ -13,7 +17,8 @@
             <div class="box-tools">
                 <form action="{{ route('dashboard.orphans.index') }}">
                     <div class="input-group input-group-sm" style="width: 150px;">
-                        <input type="text" name="search" class="form-control pull-right" placeholder="{{ trans('dashboard/app.search') }}"
+                        <input type="text" name="search" class="form-control pull-right"
+                               placeholder="{{ trans('dashboard/app.search') }}"
                                value="{{ request('search') }}">
                         <div class="input-group-btn">
                             <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
@@ -42,14 +47,16 @@
                         <td>
                             <a href="{{ route('dashboard.orphans.edit', $orphan) }}">{{ $orphan->first_name }} {{ $orphan->last_name }}</a>
                         </td>
-                        <td>{{ $orphan->birthday ? $orphan->birthday->format('d/M/Y') : '' }}</td>
+                        <td>{{ $orphan->birthday ? $orphan->birthday->format('d/m/Y') : '' }}</td>
                         <td><span class="badge bg-olive" style="color: white">{{ $orphan->oldYears }}</span></td>
                         <td><span class="badge bg-red">{{ $orphan->country->code }}</span></td>
                         <td>
-                            <form action="{{ route('dashboard.orphans.destroy', $orphan) }}" method="post">
+                            <form action="{{ route('dashboard.orphans.destroy', $orphan) }}" method="post"
+                                  class="pull-right">
                                 @csrf
                                 @method('delete')
-                                <button type="submit" class="btn btn-danger btn-xs">{{ trans('dashboard/app.delete') }}</button>
+                                <button type="submit"
+                                        class="btn btn-danger btn-xs">{{ trans('dashboard/app.delete') }}</button>
                             </form>
                         </td>
                     </tr>

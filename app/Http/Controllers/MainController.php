@@ -9,6 +9,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\DownloadAccount;
+use App\Models\User;
 use Storage;
 use Zip;
 use App\Models\Country;
@@ -94,14 +95,17 @@ class MainController extends PhotoControllerAbstract
 	
 	private function downloadAccount(Orphan $orphan, Template $template)
     {
+        $user = auth()->user();
+        $user->subscribe($orphan);
+
     	DownloadAccount::create([
-		    'user_id'       => auth()->id(),
+		    'user_id'       => $user->id,
 		    'orphan_id'     => $orphan->id,
 		    'template_id'   => $template->id,
 	    ]);
     }
 	
-	public function downloadOne(Orphan $orphan, Template $template, DownloadAccount $downloadAccount)
+	public function downloadOne(Orphan $orphan, Template $template)
     {
         $orphanPhoto = $orphan->main_photo;
         $templatePhoto = $template->url;
@@ -196,5 +200,5 @@ class MainController extends PhotoControllerAbstract
 			File::delete($this->zipPath);
 		}
 	}
-	
+
 }

@@ -6,6 +6,10 @@
     $subSelectMenu = 'list';
 @endphp
 
+@push('breadcrums')
+    <li class="active"><i class="fa fa-book"></i> Layouts</li>
+@endpush
+
 @section('content')
     <div class="box box-primary">
         <div class="box-header with-border">
@@ -33,23 +37,24 @@
                 </tr>
                 </thead>
                 <tbody>
-                    @foreach($templates as $template)
-                        <tr>
-                            <td>{{ $loop->index + 1 }}</td>
-                            <td>
-                                <a href="{{ route('dashboard.templates.edit', $template) }}">
-                                    {{ $template->title }}
-                                </a>
-                            </td>
-                            <td>
-                                <form action="{{ route('dashboard.templates.destroy', $template) }}" method="post">
-                                    @csrf
-                                    @method('delete')
-                                    <button type="submit" class="btn btn-danger btn-xs">Delete</button>
-                                </form>
-                            </td>
-                        </tr>
-                    @endforeach
+                @foreach($templates as $template)
+                    <tr>
+                        <td>{{ $loop->index + 1 }}</td>
+                        <td>
+                            <a href="{{ route('dashboard.templates.edit', $template) }}">
+                                {{ $template->title }}
+                            </a>
+                        </td>
+                        <td>
+                            <form action="{{ route('dashboard.templates.destroy', $template) }}" method="post"
+                                  class="pull-right">
+                                @csrf
+                                @method('delete')
+                                <button type="submit" class="btn btn-danger btn-xs">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                @endforeach
                 </tbody>
             </table>
         </div>

@@ -41,6 +41,8 @@ abstract class OrphanControllerAbstract extends Controller
             'country_id', 'residence_id', 'birthday', 'about',
         ]);
 
+        $data['orphan_id'] = \DB::table('orphans')->max('orphan_id');
+
         $orphan = Orphan::create($data);
 
         if ($request->hasFile('photo')) {
