@@ -67,8 +67,6 @@ abstract class UserControllerAbstract extends Controller
 
         $user = User::create($data);
 
-        event(new OrphanUpdatedEvent($user));
-
         return $user;
     }
 
@@ -100,10 +98,6 @@ abstract class UserControllerAbstract extends Controller
         }
 
         $user->update($data);
-
-        if ($request->has('email')) {
-            event(new OrphanUpdatedEvent($user));
-        }
 
         return $user;
     }
