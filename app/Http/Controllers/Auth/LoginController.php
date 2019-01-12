@@ -82,7 +82,7 @@ class LoginController extends Controller
      */
     public function logout()
     {
-        auth()->logout();
+        \Auth::logout();
 
         return redirect()->route('login');
     }

@@ -12,7 +12,12 @@
 */
 
 Route::get('login', function () {
+    if (\Auth::check()) {
+        \Auth::logout();
+    }
+
     return view('login');
+
 })->name('login');
 
 Route::post('login', 'Auth\LoginController@login')

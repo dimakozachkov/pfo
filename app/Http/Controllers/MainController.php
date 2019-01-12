@@ -128,7 +128,7 @@ class MainController extends PhotoControllerAbstract
 
         $img->insert($watermark, 'center');
 
-        $imgName = $orphan->orphan_code
+        $imgName = $orphan->orphan_code . '_'
             . $orphan->latin_name . '_'
             . $template->title . '_'
             . '_' . microtime() . '.png';
