@@ -2,18 +2,29 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Attributes\RoleAttributes;
 use App\Common\Controllers\Dashboard\OrphanControllerAbstract;
-use App\Http\Requests\Dashboard\Orphan\StoreRequest;
-use App\Http\Requests\Dashboard\Orphan\UpdateRequest;
 use App\Models\Country;
 use App\Models\Orphan;
 use App\Models\Residence;
 use App\Services\PhotoUploader;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
 final class OrphanController extends OrphanControllerAbstract
 {
+
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            $user = auth()->user();
+
+            if ($user->role === RoleAttributes::USER) {
+                return redirect()->route('home');
+            }
+
+            return $next($request);
+        });
+    }
 
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View

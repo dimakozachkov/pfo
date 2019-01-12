@@ -13,6 +13,19 @@ use App\Common\Controllers\Dashboard\UserControllerAbstract;
 final class UserController extends UserControllerAbstract
 {
 
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            $user = auth()->user();
+
+            if ($user->role === RoleAttributes::USER) {
+                return redirect()->route('home');
+            }
+
+            return $next($request);
+        });
+    }
+
     /**
      * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|mixed

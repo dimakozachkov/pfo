@@ -2,12 +2,26 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Attributes\RoleAttributes;
 use App\Models\Residence;
 use Illuminate\Http\Request;
 use App\Common\Controllers\Dashboard\ResidenceControllerAbstract;
 
 final class ResidenceController extends ResidenceControllerAbstract
 {
+
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            $user = auth()->user();
+
+            if ($user->role === RoleAttributes::USER) {
+                return redirect()->route('home');
+            }
+
+            return $next($request);
+        });
+    }
 
     public function index(Request $request)
     {

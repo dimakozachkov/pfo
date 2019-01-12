@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Attributes\RoleAttributes;
 use App\Models\Country;
 use App\Services\PhotoUploader;
 use Illuminate\Http\Request;
@@ -9,6 +10,19 @@ use App\Http\Controllers\Controller;
 
 final class CountryController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            $user = auth()->user();
+
+            if ($user->role === RoleAttributes::USER) {
+                return redirect()->route('home');
+            }
+
+            return $next($request);
+        });
+    }
 
     public function index(Request $request)
     {

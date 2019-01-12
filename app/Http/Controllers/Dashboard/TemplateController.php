@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Attributes\RoleAttributes;
 use App\Models\Template;
 use Illuminate\Http\Request;
 use App\Services\PhotoUploader;
@@ -9,6 +10,19 @@ use App\Common\Controllers\Dashboard\TemplateControllerAbstract;
 
 final class TemplateController extends TemplateControllerAbstract
 {
+
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            $user = auth()->user();
+
+            if ($user->role === RoleAttributes::USER) {
+                return redirect()->route('home');
+            }
+
+            return $next($request);
+        });
+    }
 	
 	/**
 	 * @param Request $request
