@@ -32,7 +32,11 @@ class ChangeForeignKeys extends Migration
         });
 
         Schema::table('orphans', function (Blueprint $table) {
+            $table->dropForeign(['country_id']);
+            $table->dropForeign(['residence_id']);
+            $table->dropForeign(['user_id']);
 
+            $table->dropIndex(['user_id']);
             $table->integer('user_id')
                 ->unsigned()
                 ->nullable()
