@@ -37,6 +37,18 @@
             </div>
         </div>
         <div class="row">
+            <div class="col-xs-12">
+                <div class="form-group">
+                    <label for="latin_name">First name:</label>
+
+                    <div class="input-group col-xs-12">
+                        <input type="text" class="form-control pull-left" id="latin_name" name="latin_name">
+                    </div>
+                    <!-- /.input group -->
+                </div>
+            </div>
+        </div>
+        <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
                     <label>Birthday:</label>

@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int    $residence_id
  * @property string $about
  * @property string $contact
+ * @property string $latin_name
  */
 class Orphan extends Model
 {
@@ -25,7 +26,7 @@ class Orphan extends Model
 		'first_name', 'last_name', 'address',
 		'birthday', 'country_id',
 		'residence_id', 'about', 'contact',
-        'orphan_id',
+        'orphan_id', 'latin_name',
 	];
 
 	protected $with = [
@@ -152,7 +153,7 @@ class Orphan extends Model
 	public function getOrphanCodeAttribute()
 	{
 		$countryCode = $this->country()->first()->code;
-		$orphanCode = $this->orphan_id . '' . $countryCode;
+		$orphanCode = $this->orphan_id . $countryCode;
 
 		return $orphanCode;
 	}

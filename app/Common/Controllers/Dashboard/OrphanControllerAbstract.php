@@ -37,7 +37,7 @@ abstract class OrphanControllerAbstract extends Controller
     public function store(Request $request, PhotoUploader $uploader)
     {
         $data = $request->only([
-            'first_name', 'last_name', 'address',
+            'first_name', 'last_name', 'address', 'latin_name',
             'country_id', 'residence_id', 'birthday', 'about',
         ]);
 
@@ -78,7 +78,7 @@ abstract class OrphanControllerAbstract extends Controller
     public function update(Request $request, Orphan $orphan, PhotoUploader $uploader)
     {
         $data = $request->only([
-            'first_name', 'last_name', 'address',
+            'first_name', 'last_name', 'address', 'latin_name',
             'country_id', 'residence_id', 'birthday', 'about',
             'orphan_id',
         ]);
