@@ -42,6 +42,10 @@ abstract class OrphanControllerAbstract extends Controller
             'country_id', 'residence_id', 'birthday', 'about',
         ]);
 
+        if ($data['latin_name']) {
+            $data['latin_name'] = '';
+        }
+
         $data['orphan_id'] = \DB::table('orphans')->max('orphan_id');
 
         $orphan = Orphan::create($data);
@@ -83,6 +87,10 @@ abstract class OrphanControllerAbstract extends Controller
             'country_id', 'residence_id', 'birthday', 'about',
             'orphan_id',
         ]);
+
+        if ($data['latin_name']) {
+            $data['latin_name'] = '';
+        }
 
         $data['birthday'] = Carbon::parse($data['birthday'])->toDateTimeString();
 
