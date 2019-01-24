@@ -26,6 +26,7 @@
                                                 class="section-profile__img"></span>
                                 @endcan
                                 <span class="section-profile__title-inner"></span></p>
+                            <br>
                             <p class="section-profile__office">{{ $orphan->orphan_code }}</p>
 
                             <div class="section-profile__box" style="cursor: pointer;">

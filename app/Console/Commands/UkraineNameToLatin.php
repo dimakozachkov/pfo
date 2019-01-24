@@ -64,13 +64,10 @@ class UkraineNameToLatin extends Command
 
             $orphans->each(function (Orphan $orphan) {
                 $firstName = $this->stringToArray($orphan->first_name);
-                $lastName = $this->stringToArray($orphan->last_name);
-
-                $fullName = array_merge($firstName, [' '], $lastName);
 
                 $latinName = '';
 
-                foreach ($fullName as $char) {
+                foreach ($firstName as $char) {
                     $latinName .= $this->charLibs[$char] ?? $char;
                 }
 

@@ -130,8 +130,8 @@ class MainController extends PhotoControllerAbstract
 
         $imgName = $orphan->orphan_code . '_'
             . $orphan->latin_name . '_'
-            . $template->title . '_'
-            . '_' . microtime() . '.png';
+            . $template->title . '__'
+            . microtime() . '.png';
 
         $imgPath = public_path() . '/' . $imgName;
 
@@ -188,7 +188,7 @@ class MainController extends PhotoControllerAbstract
 
             $img->insert($watermark, 'center');
 
-            $imgName = $orphan->orphan_code
+            $imgName = $orphan->orphan_code . '_'
                 . $orphan->latin_name . '_'
                 . $template->title . '_'
                 . '_' . microtime() . '.png';
