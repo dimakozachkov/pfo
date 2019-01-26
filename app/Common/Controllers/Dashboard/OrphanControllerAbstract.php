@@ -38,13 +38,9 @@ abstract class OrphanControllerAbstract extends Controller
     public function store(Request $request, PhotoUploader $uploader)
     {
         $data = $request->only([
-            'first_name', 'last_name', 'address', 'latin_name',
+            'first_name', 'last_name', 'address',
             'country_id', 'residence_id', 'birthday', 'about',
         ]);
-
-        if ($data['latin_name']) {
-            $data['latin_name'] = '';
-        }
 
         $data['orphan_id'] = \DB::table('orphans')->max('orphan_id');
 
@@ -83,14 +79,10 @@ abstract class OrphanControllerAbstract extends Controller
     public function update(Request $request, Orphan $orphan, PhotoUploader $uploader)
     {
         $data = $request->only([
-            'first_name', 'last_name', 'address', 'latin_name',
-            'country_id', 'residence_id', 'birthday', 'about',
-            'orphan_id',
+            'first_name', 'last_name', 'address',
+            'country_id', 'residence_id', 'birthday',
+            'about', 'orphan_id'
         ]);
-
-        if ($data['latin_name']) {
-            $data['latin_name'] = '';
-        }
 
         $data['birthday'] = Carbon::parse($data['birthday'])->toDateTimeString();
 

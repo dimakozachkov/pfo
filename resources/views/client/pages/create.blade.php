@@ -38,10 +38,6 @@
                                    id="ChildLastname"
                                    name="last_name" style="margin-bottom: 5px;">
 
-                            <input type="text" placeholder="Latin name" class="form-control"
-                                   id="LatinName"
-                                   name="latin_name" style="margin-bottom: 5px;">
-
                             <input type="date" class="modal-edit__field input-group date"
                                    placeholder="@lang('client/create.birthday')"
                                    id="datepicker" name="birthday" style="margin-bottom: 5px;">

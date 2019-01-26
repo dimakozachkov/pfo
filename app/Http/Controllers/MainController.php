@@ -122,14 +122,14 @@ class MainController extends PhotoControllerAbstract
 
         $country = $orphan->country;
 
-        $this->makeText($watermark, $orphan->latin_name, 1290, 78, 'RobotoBold/RobotoBold.ttf');
+        $this->makeText($watermark, $orphan->first_name, 1290, 78, 'RobotoBold/RobotoBold.ttf');
         $this->makeText($watermark, "{$orphan->orphan_code}", 1364, 36, 'RobotoBold/RobotoBold.ttf');
         $this->makeText($watermark, $country->title, 1404, 36, 'RobotoRegular/RobotoRegular.ttf', '#3F2A7E');
 
         $img->insert($watermark, 'center');
 
         $imgName = $orphan->orphan_code . '_'
-            . $orphan->latin_name . '_'
+            . $orphan->first_name . '_'
             . $template->title . '__'
             . microtime() . '.png';
 
@@ -172,7 +172,7 @@ class MainController extends PhotoControllerAbstract
 
         File::makeDirectory($dirPath);
 
-        $orphans->each(function ($orphan) use ($template, $templatePath, $dirPath) {
+        $orphans->each(function (Orphan $orphan) use ($template, $templatePath, $dirPath) {
             $this->downloadAccount($orphan, $template);
 
             $orphanPhoto = $orphan->main_photo;
@@ -182,14 +182,14 @@ class MainController extends PhotoControllerAbstract
 
             $country = $orphan->country;
 
-            $this->makeText($watermark, $orphan->latin_name, 1290, 78, 'RobotoBold/RobotoBold.ttf');
+            $this->makeText($watermark, $orphan->first_name, 1290, 78, 'RobotoBold/RobotoBold.ttf');
             $this->makeText($watermark, "{$orphan->orphan_code}", 1364, 36, 'RobotoBold/RobotoBold.ttf');
             $this->makeText($watermark, $country->title, 1404, 36, 'RobotoRegular/RobotoRegular.ttf', '#3F2A7E');
 
             $img->insert($watermark, 'center');
 
             $imgName = $orphan->orphan_code . '_'
-                . $orphan->latin_name . '_'
+                . $orphan->first_name . '_'
                 . $template->title . '_'
                 . '_' . microtime() . '.png';
 

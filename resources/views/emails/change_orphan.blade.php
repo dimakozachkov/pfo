@@ -5,7 +5,7 @@
 <body>
 
 <p>
-    Information about the orphan {{ $orphan->latin_name }} has been changed
+    Information about the orphan {{ $orphan->first_name . ' ' . $orphan->last_name }} has been changed
 </p>
 <p>
     <a href="{{ route('orphans.show', ['orphan' => $orphan]) }}">Show the orphan</a>

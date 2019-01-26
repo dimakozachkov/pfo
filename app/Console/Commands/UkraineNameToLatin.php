@@ -73,7 +73,17 @@ class UkraineNameToLatin extends Command
 
                 unset($char);
 
-                $orphan->update(['latin_name' => $latinName]);
+                $lastName = $this->stringToArray($orphan->last_name);
+
+                $latinLastName = '';
+
+                foreach ($lastName as $char) {
+                    $latinLastName .= $this->charLibs[$char] ?? $char;
+                }
+
+                unset($char);
+
+                $orphan->update(['first_name' => $latinName, 'last_name' => $latinLastName]);
             });
 
         }

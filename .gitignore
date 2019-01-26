@@ -27,7 +27,7 @@ _ide_helper.php
 /resources/assets/js/routes.json
 
 ### Project
-/public/assets
+#/public/assets
 /public/mix-manifest.json
-/resources/assets/js/client/i18n/**
-!resources/assets/js/client/i18n
+#/resources/assets/js/client/i18n/**
+#!resources/assets/js/client/i18n

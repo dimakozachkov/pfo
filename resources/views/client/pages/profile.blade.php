@@ -166,9 +166,6 @@
                         <input type="text" placeholder="@lang('client/profile.surname')" class="modal-edit__field" id="last_name"
                                name="last_name" value="{{ $orphan->last_name }}">
 
-                        <input type="text" placeholder="Latin name" class="modal-edit__field" id="latin_name"
-                               name="latin_name" value="{{ $orphan->latin_name }}">
-
                         <input type="text" class="modal-edit__field input-group date"
                                placeholder="@lang('client/profile.birthday')"
                                id="datetimepicker"
