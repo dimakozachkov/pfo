@@ -124,7 +124,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="gallery-pages__center">
-                                    {{ $orphans->render() }}
+                                    {{ $orphans->links() }}
                                 </div>
                             </div>
                         </div>

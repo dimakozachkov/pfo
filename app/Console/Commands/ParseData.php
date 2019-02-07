@@ -23,12 +23,10 @@ class ParseData extends Command
      */
     protected $description = 'The command parse all data of the old pfo project';
 
-    protected $url = "http://prayfororphan.info/";
+    protected $url = 'http://prayfororphan.info/';
 
     /**
      * Create a new command instance.
-     *
-     * @return void
      */
     public function __construct()
     {
@@ -45,7 +43,6 @@ class ParseData extends Command
         $this->countries();
         $this->orphans();
     }
-
 
     private function countries(): void
     {
@@ -68,25 +65,13 @@ class ParseData extends Command
             ->get();
 
         $orphans->each(function ($item) {
-            $orphan = Orphan::create([
-                'first_name' => $item->firstname,
-                'last_name' => $item->surname,
-                'about' => $item->text,
-                'country_id' => $item->country_id,
-                'user_id' => 1,
-                'orphan_id' => $item->child_id,
-            ]);
-
-            $url = "http://prayfororphan.info/Content/images/archive/photo/{$item->image}";
-            $randName = $this->storeImage($url);
-
-            if (strlen($randName) > 0) {
-                $orphan->photos()->create([
-                    'url' => $randName,
-                    'weight' => 100,
-                    'main' => true,
+            $orphan = Orphan::where('orphan_id', $item->child_id)
+                ->first()
+                ->photos()
+                ->first()
+                ->update([
+                    'url' => $item->image ?? '',
                 ]);
-            }
         });
     }
 
@@ -97,10 +82,10 @@ class ParseData extends Command
      */
     private function storeImage($photo): string
     {
-        $randName = "";
+        $randName = '';
 
         try {
-            $randName = Str::random(32) . '.jpg';
+            $randName = Str::random(32).'.jpg';
             $file = file_get_contents($photo);
             file_put_contents("./public/storage/photos/$randName", $file);
         } catch (\Exception $e) {
@@ -109,5 +94,4 @@ class ParseData extends Command
             return $randName;
         }
     }
-
 }

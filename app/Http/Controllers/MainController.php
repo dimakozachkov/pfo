@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: 38095
  * Date: 13.08.2018
- * Time: 21:36
+ * Time: 21:36.
  */
 
 namespace App\Http\Controllers;
@@ -18,12 +18,10 @@ use File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
-use Storage;
 use Zip;
 
 class MainController extends PhotoControllerAbstract
 {
-
     private $zipPath = null;
 
     public function index()
@@ -64,7 +62,7 @@ class MainController extends PhotoControllerAbstract
 
         return view('client.pages.find')
             ->with('countries', $countries)
-            ->with('orphans', $orphans)
+            ->with('orphans', $orphans->appends($request->except('page')))
             ->with('templates', $templates)
             ->with('title', $title)
             ->with('orphansIds', $orphansIds);
@@ -112,8 +110,8 @@ class MainController extends PhotoControllerAbstract
 
         $this->downloadAccount($orphan, $template);
 
-        $orphanPath = public_path('storage/photos') . "/{$orphanPhoto}";
-        $templatePath = public_path('storage/img/templates') . "/{$templatePhoto}";
+        $orphanPath = public_path('storage/photos')."/{$orphanPhoto}";
+        $templatePath = public_path('storage/img/templates')."/{$templatePhoto}";
 
         $img = Image::make($orphanPath)
             ->resize(1200, 1800);
@@ -128,12 +126,12 @@ class MainController extends PhotoControllerAbstract
 
         $img->insert($watermark, 'center');
 
-        $imgName = $orphan->orphan_code . '_'
-            . $orphan->first_name . '_'
-            . $template->title . '__'
-            . microtime() . '.png';
+        $imgName = $orphan->orphan_code.'_'
+            .$orphan->first_name.'_'
+            .$template->title.'__'
+            .microtime().'.png';
 
-        $imgPath = public_path() . '/' . $imgName;
+        $imgPath = public_path().'/'.$imgName;
 
         $img->save($imgPath);
 
@@ -147,16 +145,16 @@ class MainController extends PhotoControllerAbstract
         $dirName = $template->title;
 
         if ($request->has('search') && !is_null($request->input('search'))) {
-            $dirName .= '_' . $request->input('search');
+            $dirName .= '_'.$request->input('search');
         }
 
         if ($request->has('residence_id') && !is_null($request->input('residence_id'))) {
             $residence = Residence::findOrFail($request->input('residence_id'));
             $countryCode = $residence->country->code;
-            $dirName .= '_' . $residence->title . '_' . $countryCode;
+            $dirName .= '_'.$residence->title.'_'.$countryCode;
         }
 
-        return $dirName . '_' . microtime(true);
+        return $dirName.'_'.microtime(true);
     }
 
     public function downloadMany(Request $request, Template $template)
@@ -165,10 +163,10 @@ class MainController extends PhotoControllerAbstract
         $orphans = Orphan::whereIn('id', $orphansIds)->get();
 
         $templatePhoto = $template->url;
-        $templatePath = public_path('storage/img/templates') . "/{$templatePhoto}";
+        $templatePath = public_path('storage/img/templates')."/{$templatePhoto}";
 
         $dirName = $this->makeDirName($request, $template);
-        $dirPath = public_path() . '/' . $dirName;
+        $dirPath = public_path().'/'.$dirName;
 
         File::makeDirectory($dirPath);
 
@@ -176,7 +174,7 @@ class MainController extends PhotoControllerAbstract
             $this->downloadAccount($orphan, $template);
 
             $orphanPhoto = $orphan->main_photo;
-            $photoPath = public_path('storage/photos') . "/{$orphanPhoto}";
+            $photoPath = public_path('storage/photos')."/{$orphanPhoto}";
             $img = Image::make($photoPath)->resize(1200, 1800);
             $watermark = Image::make($templatePath);
 
@@ -188,12 +186,12 @@ class MainController extends PhotoControllerAbstract
 
             $img->insert($watermark, 'center');
 
-            $imgName = $orphan->orphan_code . '_'
-                . $orphan->first_name . '_'
-                . $template->title . '_'
-                . '_' . microtime() . '.png';
+            $imgName = $orphan->orphan_code.'_'
+                .$orphan->first_name.'_'
+                .$template->title.'_'
+                .'_'.microtime().'.png';
 
-            $img->save($dirPath . '/' . $imgName);
+            $img->save($dirPath.'/'.$imgName);
         });
 
         $zipName = "{$dirName}.zip";
@@ -205,7 +203,6 @@ class MainController extends PhotoControllerAbstract
         File::deleteDirectory($dirPath);
 
         return response()->download(public_path($zipName));
-
     }
 
     public function __destruct()
@@ -214,5 +211,4 @@ class MainController extends PhotoControllerAbstract
             File::delete($this->zipPath);
         }
     }
-
 }
